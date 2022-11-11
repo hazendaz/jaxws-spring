@@ -14,8 +14,8 @@ subprojects {
     ext {
         springVersion = '4.2.6.RELEASE'
         servletApiVersion = '3.1.0'
-        jaxwsApiVersion = '2.2.11'
         jaxwsVersion = '2.2.10'
+        jaxwsApiVersion = '2.3.3'
     }
 
     if (!rootProject.hasProperty('sonatypeUsername')) {

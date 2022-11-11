@@ -27,7 +27,7 @@ configurations {
 dependencies {
     compile project(':jaxws-spring')
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile "javax.xml.ws:jaxws-api:${jaxwsApiVersion}"
+    compile "jakarta.xml.ws:jakarta.xml.ws-api:${jaxwsApiVersion}"
     compile "com.sun.xml.ws:jaxws-rt:${jaxwsVersion}"
 
     wsimport "com.sun.xml.ws:jaxws-tools:${jaxwsVersion}"
