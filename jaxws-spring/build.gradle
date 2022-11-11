@@ -4,7 +4,7 @@ dependencies {
     compile "org.springframework:spring-context:${springVersion}"
     compile "org.springframework:spring-web:${springVersion}"
 
-    compileOnly "javax.servlet:javax.servlet-api:${servletApiVersion}"
+    compileOnly "jakarta.servlet:jakarta.servlet-api:${servletApiVersion}"
     compileOnly "jakarta.xml.ws:jakarta.xml.ws-api:${jaxwsApiVersion}"
     compileOnly "com.sun.xml.ws:jaxws-rt:${jaxwsVersion}"
 }

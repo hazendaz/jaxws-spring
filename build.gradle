@@ -12,8 +12,8 @@ subprojects {
     targetCompatibility = 1.8
 
     ext {
-        servletApiVersion = '3.1.0'
         springVersion = '5.3.23'
+        servletApiVersion = '4.0.4'
         jaxwsApiVersion = '2.3.3'
         jaxwsVersion = '2.3.5'
     }
