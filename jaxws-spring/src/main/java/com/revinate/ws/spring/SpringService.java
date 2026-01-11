@@ -513,7 +513,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 }
             }
 
-            if (spiType == Module.class) {
+            if (spiType == com.sun.xml.ws.api.server.Module.class) {
                 // fall back default implementation
                 return spiType.cast(module);
             }
@@ -521,7 +521,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
             return null;
         }
 
-        private final Module module = new Module() {
+        private final com.sun.xml.ws.api.server.Module module = new com.sun.xml.ws.api.server.Module() {
             private final List<BoundEndpoint> endpoints = new ArrayList<>();
 
             public @NotNull List<BoundEndpoint> getBoundEndpoints() {
