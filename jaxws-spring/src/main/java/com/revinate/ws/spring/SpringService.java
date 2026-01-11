@@ -179,7 +179,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p>
      * This is an advanced configuration option for those who would like to control
      * what processing JAX-WS runtime performs. The default value is {@code null},
-     * in which case the {@link TubelineAssemblerFactory} is looked up from the <tt>META-INF/services</tt>.
+     * in which case the {@link TubelineAssemblerFactory} is looked up from the <code>META-INF/services</code>.
      */
     public void setAssembler(Object assembler) {
         if (assembler instanceof TubelineAssembler || assembler instanceof TubelineAssemblerFactory) {
@@ -225,8 +225,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Sets the binding ID, such as <tt>{@value SOAPBinding#SOAP11HTTP_BINDING}</tt>
-     * or <tt>{@value SOAPBinding#SOAP12HTTP_BINDING}</tt>.
+     * Sets the binding ID, such as <code>{@value SOAPBinding#SOAP11HTTP_BINDING}</code>
+     * or <code>{@value SOAPBinding#SOAP12HTTP_BINDING}</code>.
      *
      * <p>
      * If none is specified, {@link BindingType} annotation on SEI is consulted.
@@ -253,7 +253,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      *
      * <p>
      * If there's just one handler and that handler is declared elsewhere,
-     * you can use this as a nested attribute like <tt>handlers="#myHandler"</tt>.
+     * you can use this as a nested attribute like <code>handlers="#myHandler"</code>.
      * Or otherwise a nested &lt;bean&gt; or &lt;ref&gt; tag can be used to
      * specify multiple handlers.
      */
@@ -264,7 +264,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Optional WSDL for this endpoint.
      * <p>
-     * Defaults to the WSDL discovered in <tt>META-INF/wsdl</tt>,
+     * Defaults to the WSDL discovered in <code>META-INF/wsdl</code>,
      * <p>
      * It can be either {@link String}, {@link URL}, or {@link SDDocumentSource}.
      * <p>
@@ -298,8 +298,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      *
      * <p>
      * If omitted, the default catalog resolver is created by looking at
-     * <tt>/WEB-INF/jax-ws-catalog.xml</tt> (if we run as a servlet) or
-     * <tt>/META-INF/jax-ws-catalog.xml</tt> (otherwise.)
+     * <code>/WEB-INF/jax-ws-catalog.xml</code> (if we run as a servlet) or
+     * <code>/META-INF/jax-ws-catalog.xml</code> (otherwise.)
      */
     public void setResolver(EntityResolver resolver) {
         this.resolver = resolver;
