@@ -23,6 +23,7 @@ public class SpringBinding implements BeanNameAware {
     private String urlPattern;
     private WSEndpoint<?> endpoint;
 
+    @Override
     public void setBeanName(String name) {
         this.beanName = name;
     }

@@ -455,6 +455,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 }
                 if (assembler instanceof TubelineAssembler) {
                     return spiType.cast(new TubelineAssemblerFactory() {
+                        @Override
                         public TubelineAssembler doCreate(BindingID bindingId) {
                             return (TubelineAssembler) assembler;
                         }
