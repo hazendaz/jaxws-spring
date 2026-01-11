@@ -146,6 +146,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Set automatically by Spring if JAX-WS is used inside web container.
      */
+    @Override
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
@@ -298,6 +299,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      */
     private WSEndpoint<?> endpoint;
 
+    @Override
     public WSEndpoint<?> getObject() throws Exception {
         if (endpoint == null) {
             if (binding == null) {
@@ -365,6 +367,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      *
      * @see #resolveSDDocumentSource(Object)
      */
+    @Override
     public void afterPropertiesSet() throws Exception {
         if (this.primaryWSDLResource != null) {
             this.primaryWsdl = this.resolveSDDocumentSource(this.primaryWSDLResource);
@@ -459,16 +462,19 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
         return SDDocumentSource.create(url);
     }
 
+    @Override
     public boolean isSingleton() {
         return true;
     }
 
+    @Override
     public Class<WSEndpoint> getObjectType() {
         return WSEndpoint.class;
     }
 
     private class ContainerWrapper extends Container {
 
+        @Override
         public <T> T getSPI(Class<T> spiType) {
             // allow specified TubelineAssembler to be used
             if (spiType == TubelineAssemblerFactory.class) {
@@ -507,6 +513,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
         private final com.sun.xml.ws.api.server.Module module = new com.sun.xml.ws.api.server.Module() {
             private final List<BoundEndpoint> endpoints = new ArrayList<>();
 
+            @Override
             public @NotNull List<BoundEndpoint> getBoundEndpoints() {
                 return endpoints;
             }
