@@ -22,8 +22,8 @@ can pull in versions and implementations of those APIs they choose.
 
 ## Requirements
 
-* Java 1.7 or newer
-* Servlet API 2.0 or newer
+* Java 11 or newer
+* Servlet API 4.0 or newer
 * JAX-WS API
 * JAX-WS RT
 
@@ -35,9 +35,9 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.revinate</groupId>
+  <groupId>com.github.hazendaz.jaxws</groupId>
   <artifactId>jaxws-spring</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -46,7 +46,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build script:
 
 ```groovy
-compile 'com.revinate:jaxws-spring:1.0.0'
+compile 'com.github.hazendaz.jaxws:jaxws-spring:2.0.0'
 ```
 
 ## Usage
@@ -61,7 +61,9 @@ directory. The sample application can be started by running
 the following command in the project root directory:
 
 ```
-$ ./gradlew :jaxws-spring-sample:bootRun
+$ ./mvnw clean install
+$ cd jaxws-spring-sample
+$ ./mvnw spring-boot:run
 ```
 
 The sample application implements a single service with two ports, located at:
@@ -83,7 +85,9 @@ directory. The sample application can be started by running
 the following command in the project root directory:
 
 ```
-$ ./gradlew :jaxws-spring-sample-fromjava:bootRun
+$ ./mvnw clean install
+$ cd jaxws-spring-sample-fromjava
+$ ./mvnw spring-boot:run
 ```
 
 The sample application implements a single service with one port, located at:
