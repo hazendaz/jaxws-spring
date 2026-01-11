@@ -13,7 +13,7 @@
     <artifactId>jaxws-spring</artifactId>
     <version>2.0.0-SNAPSHOT</version>
 
-    <name>Jaxws Spring</name>
+    <name>jaxws-spring</name>
     <description>Jaxws Spring Integration</description>
 
     <scm>
