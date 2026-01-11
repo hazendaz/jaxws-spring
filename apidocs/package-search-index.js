@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.revinate.jaxwsspringsample"},{"l":"com.revinate.jaxwsspringsamplefromjava"},{"l":"com.revinate.sample.datatype"},{"l":"com.revinate.sample.service"},{"l":"com.revinate.ws.spring"},{"l":"com.revinate.ws.spring.internal"}];updateSearchResults();
