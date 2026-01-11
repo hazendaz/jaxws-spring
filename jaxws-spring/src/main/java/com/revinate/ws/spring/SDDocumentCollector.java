@@ -3,13 +3,14 @@ package com.revinate.ws.spring;
 import com.sun.xml.ws.api.server.SDDocumentSource;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +26,9 @@ public class SDDocumentCollector {
             if ("file".equals(url.getProtocol())) {
                 File file;
                 try {
-                    file = new File(url.toURI());
+                    file = Path.of(url.toURI()).toFile();
                 } catch (URISyntaxException e) {
-                    file = new File(url.getPath());
+                    file = Path.of(url.getPath()).toFile();
                 }
                 collectDir(file, docs);
             } else if ("jar".equals(url.getProtocol())) {
@@ -40,14 +41,13 @@ public class SDDocumentCollector {
 
                 String[] pathParts = jarUrlString.split("!");
                 if (pathParts.length >= 2) {
+                    Path path;
                     try {
-                        File file;
-                        try {
-                            file = new File(new URI(pathParts[0]));
-                        } catch (URISyntaxException e) {
-                            file = new File(pathParts[0]);
-                        }
-                        InputStream inputStream = new FileInputStream(file);
+                        path = Path.of(new URI(pathParts[0]));
+                    } catch (URISyntaxException e) {
+                        path = Path.of(pathParts[0]);
+                    }
+                    try (InputStream inputStream = Files.newInputStream(path)) {
                         String jarPathUrlString = jarUrlString.substring(0, jarUrlString.lastIndexOf('!'));
                         collectJar(inputStream, pathParts, jarPathUrlString, docs);
                     } catch (IOException e) {
