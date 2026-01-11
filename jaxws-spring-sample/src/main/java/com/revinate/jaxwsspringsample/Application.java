@@ -4,12 +4,12 @@ import com.revinate.sample.service.FactorialPort;
 import com.revinate.sample.service.FibonacciPort;
 import com.revinate.ws.spring.SDDocumentCollector;
 import com.revinate.ws.spring.SpringService;
-import com.sun.xml.ws.transport.http.servlet.SpringBinding;
-import com.sun.xml.ws.transport.http.servlet.WSSpringServlet;
+import com.revinate.ws.spring.internal.SpringBinding;
+import com.revinate.ws.spring.internal.WSSpringServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import javax.servlet.Servlet;
@@ -43,13 +43,16 @@ public class Application {
     }
 
     @Bean
-    public Servlet jaxwsServlet() {
+    public WSSpringServlet jaxwsServlet() {
         return new WSSpringServlet();
     }
 
     @Bean
     public ServletRegistrationBean jaxwsServletRegistration() {
-        return new ServletRegistrationBean(jaxwsServlet(), "/service/*");
+        ServletRegistrationBean<WSSpringServlet> bean =
+            new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
+        bean.setLoadOnStartup(1);
+        return bean;
     }
 
     @Bean
