@@ -80,10 +80,7 @@ public class SDDocumentCollector {
         }
     }
 
-    private static void collectJar(
-            InputStream inputStream,
-            String[] pathParts,
-            String jarPathUrlString,
+    private static void collectJar(InputStream inputStream, String[] pathParts, String jarPathUrlString,
             Map<URL, Object> docs) {
         String nextPathPart = stripLeadingSlash(pathParts[1]);
 

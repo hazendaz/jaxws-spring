@@ -1,8 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * 
+ *
  * Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved.
- * 
+ *
  * The contents of this file are subject to the terms of either the GNU
  * General Public License Version 2 only ("GPL") or the Common Development
  * and Distribution License("CDDL") (collectively, the "License").  You
@@ -10,7 +10,7 @@
  * a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html
  * or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific
  * language governing permissions and limitations under the License.
- * 
+ *
  * When distributing the software, include this License Header Notice in each
  * file and include the License file at glassfish/bootstrap/legal/LICENSE.txt.
  * Sun designates this particular file as subject to the "Classpath" exception
@@ -19,9 +19,9 @@
  * Header, with the fields enclosed by brackets [] replaced by your own
  * identifying information: "Portions Copyrighted [year]
  * [name of copyright owner]"
- * 
+ *
  * Contributor(s):
- * 
+ *
  * If you wish your version of this file to be governed by only the CDDL or
  * only the GPL Version 2, indicate your decision by adding "[Contributor]
  * elects to include this software in this distribution under the [CDDL or GPL
@@ -45,10 +45,13 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.server.EndpointFactory;
 import com.sun.xml.ws.server.ServerRtException;
 import com.sun.xml.ws.util.xml.XmlUtil;
-import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.web.context.ServletContextAware;
-import org.xml.sax.EntityResolver;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.xml.namespace.QName;
@@ -57,12 +60,11 @@ import javax.xml.ws.WebServiceFeature;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.http.HTTPBinding;
 import javax.xml.ws.soap.SOAPBinding;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.web.context.ServletContextAware;
+import org.xml.sax.EntityResolver;
 
 /**
  * Endpoint. A service object and the infrastructure around it.
@@ -81,8 +83,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     private Container container;
 
     /**
-     * Source for the service's primary WSDL.
-     * Set by {@link #afterPropertiesSet()}.
+     * Source for the service's primary WSDL. Set by {@link #afterPropertiesSet()}.
      */
     private SDDocumentSource primaryWsdl;
 
@@ -94,8 +95,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     private Object primaryWSDLResource;
 
     /**
-     * Sources for the service's metadata.
-     * Set by {@link #afterPropertiesSet()}.
+     * Sources for the service's metadata. Set by {@link #afterPropertiesSet()}.
      */
     private Collection<? extends SDDocumentSource> metadata;
 
@@ -130,10 +130,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     private List<WebServiceFeature> features;
 
     /**
-     * Technically speaking, handlers belong to
-     * {@link WSBinding} and as such it should be configured there,
-     * but it's just more convenient to let people do so at this object,
-     * because often people use a stock binding ID constant
+     * Technically speaking, handlers belong to {@link WSBinding} and as such it should be configured there, but it's
+     * just more convenient to let people do so at this object, because often people use a stock binding ID constant
      * instead of a configured {@link WSBinding} bean.
      */
     private List<Handler> handlers;
@@ -167,8 +165,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Sets {@link Invoker} for this endpoint.
-     * Defaults to {@link InstanceResolver#createDefault(Class) the standard invoker}.
+     * Sets {@link Invoker} for this endpoint. Defaults to {@link InstanceResolver#createDefault(Class) the standard
+     * invoker}.
      */
     public void setInvoker(Invoker invoker) {
         this.invoker = invoker;
@@ -177,9 +175,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Sets the {@link TubelineAssembler} or {@link TubelineAssemblerFactory} instance.
      * <p>
-     * This is an advanced configuration option for those who would like to control
-     * what processing JAX-WS runtime performs. The default value is {@code null},
-     * in which case the {@link TubelineAssemblerFactory} is looked up from the <code>META-INF/services</code>.
+     * This is an advanced configuration option for those who would like to control what processing JAX-WS runtime
+     * performs. The default value is {@code null}, in which case the {@link TubelineAssemblerFactory} is looked up from
+     * the <code>META-INF/services</code>.
      */
     public void setAssembler(Object assembler) {
         if (assembler instanceof TubelineAssembler || assembler instanceof TubelineAssemblerFactory) {
@@ -190,16 +188,14 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Sets the service name of this endpoint.
-     * Defaults to the name inferred from the impl attribute.
+     * Sets the service name of this endpoint. Defaults to the name inferred from the impl attribute.
      */
     public void setServiceName(QName serviceName) {
         this.serviceName = serviceName;
     }
 
     /**
-     * Sets the port name of this endpoint.
-     * Defaults to the name inferred from the impl attribute.
+     * Sets the port name of this endpoint. Defaults to the name inferred from the impl attribute.
      */
     public void setPortName(QName portName) {
         this.portName = portName;
@@ -214,8 +210,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Accepts an externally configured {@link WSBinding}
-     * for advanced users.
+     * Accepts an externally configured {@link WSBinding} for advanced users.
      */
     // is there a better way to do this in Spring?
     // http://opensource.atlassian.com/projects/spring/browse/SPR-2528?page=all
@@ -225,12 +220,11 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Sets the binding ID, such as <code>{@value SOAPBinding#SOAP11HTTP_BINDING}</code>
-     * or <code>{@value SOAPBinding#SOAP12HTTP_BINDING}</code>.
-     *
+     * Sets the binding ID, such as <code>{@value SOAPBinding#SOAP11HTTP_BINDING}</code> or
+     * <code>{@value SOAPBinding#SOAP12HTTP_BINDING}</code>.
      * <p>
-     * If none is specified, {@link BindingType} annotation on SEI is consulted.
-     * If that fails, {@link SOAPBinding#SOAP11HTTP_BINDING}.
+     * If none is specified, {@link BindingType} annotation on SEI is consulted. If that fails,
+     * {@link SOAPBinding#SOAP11HTTP_BINDING}.
      *
      * @see SOAPBinding#SOAP11HTTP_BINDING
      * @see SOAPBinding#SOAP12HTTP_BINDING
@@ -248,14 +242,11 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * {@link Handler}s for this endpoint.
-     * Note that the order is significant.
-     *
+     * {@link Handler}s for this endpoint. Note that the order is significant.
      * <p>
-     * If there's just one handler and that handler is declared elsewhere,
-     * you can use this as a nested attribute like <code>handlers="#myHandler"</code>.
-     * Or otherwise a nested &lt;bean&gt; or &lt;ref&gt; tag can be used to
-     * specify multiple handlers.
+     * If there's just one handler and that handler is declared elsewhere, you can use this as a nested attribute like
+     * <code>handlers="#myHandler"</code>. Or otherwise a nested &lt;bean&gt; or &lt;ref&gt; tag can be used to specify
+     * multiple handlers.
      */
     public void setHandlers(List<Handler> handlers) {
         this.handlers = handlers;
@@ -268,10 +259,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p>
      * It can be either {@link String}, {@link URL}, or {@link SDDocumentSource}.
      * <p>
-     * If <code>primaryWsdl</code> is a <code>String</code>,
-     * {@link ServletContext} (if available) and {@link ClassLoader}
-     * are searched for this path, then failing that, it's treated as an
-     * absolute {@link URL}.
+     * If <code>primaryWsdl</code> is a <code>String</code>, {@link ServletContext} (if available) and
+     * {@link ClassLoader} are searched for this path, then failing that, it's treated as an absolute {@link URL}.
      */
     public void setPrimaryWsdl(Object primaryWsdl) throws IOException {
         this.primaryWSDLResource = primaryWsdl;
@@ -280,26 +269,20 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Optional metadata for this endpoint.
      * <p>
-     * The collection can contain {@link String}, {@link URL}, or {@link SDDocumentSource}
-     * elements.
+     * The collection can contain {@link String}, {@link URL}, or {@link SDDocumentSource} elements.
      * <p>
-     * If element is a <code>String</code>,
-     * {@link ServletContext} (if available) and {@link ClassLoader}
-     * are searched for this path, then failing that, it's treated as an
-     * absolute {@link URL}.
+     * If element is a <code>String</code>, {@link ServletContext} (if available) and {@link ClassLoader} are searched
+     * for this path, then failing that, it's treated as an absolute {@link URL}.
      */
     public void setMetadata(Collection<Object> metadata) {
         this.metadataResources = metadata;
     }
 
     /**
-     * Sets the {@link EntityResolver} to be used for resolving schemas/WSDLs
-     * that are referenced. Optional.
-     *
+     * Sets the {@link EntityResolver} to be used for resolving schemas/WSDLs that are referenced. Optional.
      * <p>
-     * If omitted, the default catalog resolver is created by looking at
-     * <code>/WEB-INF/jax-ws-catalog.xml</code> (if we run as a servlet) or
-     * <code>/META-INF/jax-ws-catalog.xml</code> (otherwise.)
+     * If omitted, the default catalog resolver is created by looking at <code>/WEB-INF/jax-ws-catalog.xml</code> (if we
+     * run as a servlet) or <code>/META-INF/jax-ws-catalog.xml</code> (otherwise.)
      */
     public void setResolver(EntityResolver resolver) {
         this.resolver = resolver;
@@ -319,8 +302,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 if (features == null || features.isEmpty()) {
                     binding = BindingImpl.create(bindingID);
                 } else {
-                    binding = BindingImpl.create(bindingID,
-                            features.toArray(new WebServiceFeature[features.size()]));
+                    binding = BindingImpl.create(bindingID, features.toArray(new WebServiceFeature[features.size()]));
                 }
             } else {
                 if (bindingID != null) {
@@ -354,28 +336,27 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 if (servletContext != null) {
                     resolver = XmlUtil.createEntityResolver(servletContext.getResource("/WEB-INF/jax-ws-catalog.xml"));
                 } else {
-                    resolver = XmlUtil.createEntityResolver(getClass().getClassLoader().getResource("/META-INF/jax-ws-catalog.xml"));
+                    resolver = XmlUtil.createEntityResolver(
+                            getClass().getClassLoader().getResource("/META-INF/jax-ws-catalog.xml"));
                 }
             }
 
-            endpoint = WSEndpoint.create(implType, false, invoker, serviceName,
-                    portName, new ContainerWrapper(), binding, primaryWsdl, metadata, resolver, true);
+            endpoint = WSEndpoint.create(implType, false, invoker, serviceName, portName, new ContainerWrapper(),
+                    binding, primaryWsdl, metadata, resolver, true);
         }
         return endpoint;
     }
 
     /**
-     * Called automatically by Spring after all properties have been set, including
-     * {@link #servletContext}.  This implementation creates
-     * <code>SDDocumentSource</code>s from the {@link #primaryWSDLResource} and
+     * Called automatically by Spring after all properties have been set, including {@link #servletContext}. This
+     * implementation creates <code>SDDocumentSource</code>s from the {@link #primaryWSDLResource} and
      * {@link #metadataResources} properties, if provided.
+     * <p>
+     * See {@link #setMetadata(java.util.Collection)} and {@link #setPrimaryWsdl(Object)} for conversion rules.
      *
-     * <p>See {@link #setMetadata(java.util.Collection)} and
-     * {@link #setPrimaryWsdl(Object)} for conversion rules.
-     *
-     * @throws Exception if an error occurs while creating
-     * <code>SDDocumentSource</code>s from the {@link #primaryWSDLResource} and
-     * {@link #metadataResources} properties
+     * @throws Exception
+     *             if an error occurs while creating <code>SDDocumentSource</code>s from the
+     *             {@link #primaryWSDLResource} and {@link #metadataResources} properties
      *
      * @see #resolveSDDocumentSource(Object)
      */
@@ -396,20 +377,18 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     }
 
     /**
-     * Resolves a resource ({@link String}, {@link URL}, or {@link SDDocumentSource})
-     * to a {@link SDDocumentSource}.
+     * Resolves a resource ({@link String}, {@link URL}, or {@link SDDocumentSource}) to a {@link SDDocumentSource}.
      * <p/>
-     * See {@link #convertStringToSource(String)} for processing rules relating
-     * to a <code>String</code> argument.
+     * See {@link #convertStringToSource(String)} for processing rules relating to a <code>String</code> argument.
      *
-     * @param resource the <code>String</code>, <code>URL</code>,
-     * or <code>SDDocumentSource</code> to resolve
+     * @param resource
+     *            the <code>String</code>, <code>URL</code>, or <code>SDDocumentSource</code> to resolve
      *
      * @return a <code>SDDocumentSource</code> for the provided <code>resource</code>
      *
-     * @throws IllegalArgumentException if <code>resource</code> is not an
-     * instance of <code>String</code>, <code>URL</code>, or
-     * <code>SDDocumentSource</code>
+     * @throws IllegalArgumentException
+     *             if <code>resource</code> is not an instance of <code>String</code>, <code>URL</code>, or
+     *             <code>SDDocumentSource</code>
      *
      * @see #convertStringToSource(String)
      * @see SDDocumentSource#create(java.net.URL)
@@ -424,7 +403,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
         } else if (resource instanceof SDDocumentSource) {
             source = (SDDocumentSource) resource;
         } else {
-            throw new IllegalArgumentException("Unknown type \"" + resource.getClass().getName() + "\" for resource " + resource);
+            throw new IllegalArgumentException(
+                    "Unknown type \"" + resource.getClass().getName() + "\" for resource " + resource);
         }
 
         return source;
@@ -433,14 +413,12 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Converts {@link String} into {@link SDDocumentSource}.
      * <p/>
-     * If <code>resourceLocation</code> is a <code>String</code>,
-     * {@link ServletContext} (if available) and {@link ClassLoader}
-     * are searched for this path, then failing that, it's treated as an
-     * absolute {@link URL}.
+     * If <code>resourceLocation</code> is a <code>String</code>, {@link ServletContext} (if available) and
+     * {@link ClassLoader} are searched for this path, then failing that, it's treated as an absolute {@link URL}.
      *
-     * @throws ServerRtException if <code>resourceLocation</code> cannot be
-     * resolved through {@link ServletContext} (if available), {@link ClassLoader},
-     * or as an absolute {@link java.net.URL}.
+     * @throws ServerRtException
+     *             if <code>resourceLocation</code> cannot be resolved through {@link ServletContext} (if available),
+     *             {@link ClassLoader}, or as an absolute {@link java.net.URL}.
      */
     private SDDocumentSource convertStringToSource(String resourceLocation) {
         URL url = null;
@@ -495,7 +473,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 if (assembler instanceof TubelineAssembler) {
                     return spiType.cast(new TubelineAssemblerFactory() {
                         public TubelineAssembler doCreate(BindingID bindingId) {
-                            return (TubelineAssembler)assembler;
+                            return (TubelineAssembler) assembler;
                         }
                     });
                 }

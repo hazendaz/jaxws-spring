@@ -6,18 +6,19 @@ import com.revinate.ws.spring.SDDocumentCollector;
 import com.revinate.ws.spring.SpringService;
 import com.revinate.ws.spring.internal.SpringBinding;
 import com.revinate.ws.spring.internal.WSSpringServlet;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Map;
+
+import javax.xml.namespace.QName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-
-import javax.servlet.Servlet;
-import javax.xml.namespace.QName;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Map;
 
 @SpringBootApplication
 public class Application {
@@ -49,8 +50,7 @@ public class Application {
 
     @Bean
     public ServletRegistrationBean jaxwsServletRegistration() {
-        ServletRegistrationBean<WSSpringServlet> bean =
-            new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
+        ServletRegistrationBean<WSSpringServlet> bean = new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
         bean.setLoadOnStartup(1);
         return bean;
     }
