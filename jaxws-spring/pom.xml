@@ -24,7 +24,7 @@
     </scm>
 
     <properties>
-        <spring.version>5.3.39</spring.version>
+        <spring.version>7.0.2</spring.version>
 
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jaxws.spring</module.name>
