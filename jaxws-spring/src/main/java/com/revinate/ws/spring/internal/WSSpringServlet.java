@@ -33,13 +33,15 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package com.sun.xml.ws.transport.http.servlet;
+package com.revinate.ws.spring.internal;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import com.sun.xml.ws.transport.http.servlet.WSServletDelegate;
+import com.sun.xml.ws.transport.http.servlet.ServletAdapterList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -97,8 +99,9 @@ public class WSSpringServlet extends HttpServlet implements ApplicationContextAw
 
         // create adapters
         ServletAdapterList l = new ServletAdapterList(getServletContext());
-        for (SpringBinding binding : bindings)
+        for (SpringBinding binding : bindings) {
             binding.create(l);
+        }
 
         delegate = new WSServletDelegate(l,getServletContext());
     }

@@ -33,10 +33,12 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */
-package com.sun.xml.ws.transport.http.servlet;
+package com.revinate.ws.spring.internal;
 
 import org.springframework.beans.factory.BeanNameAware;
 import com.sun.xml.ws.api.server.WSEndpoint;
+import com.sun.xml.ws.transport.http.servlet.WSServletDelegate;
+import com.sun.xml.ws.transport.http.servlet.ServletAdapterList;
 
 /**
  * Represents the association between the service and URL.
