@@ -9,6 +9,7 @@ package com.revinate.jaxwsspringsamplefromjava;
 
 public class FibonacciException extends Exception {
 
+    private static final long serialVersionUID = 1L;
     private final String detail;
 
     public FibonacciException(String message, String detail) {

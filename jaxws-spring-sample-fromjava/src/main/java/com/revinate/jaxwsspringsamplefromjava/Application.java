@@ -32,19 +32,19 @@ public class Application {
     }
 
     @Bean
-    public WSSpringServlet jaxwsServlet() {
+    WSSpringServlet jaxwsServlet() {
         return new WSSpringServlet();
     }
 
     @Bean
-    public ServletRegistrationBean<WSSpringServlet> jaxwsServletRegistration() {
+    ServletRegistrationBean<WSSpringServlet> jaxwsServletRegistration() {
         ServletRegistrationBean<WSSpringServlet> bean = new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
         bean.setLoadOnStartup(1);
         return bean;
     }
 
     @Bean
-    public SpringService fibonacciService() throws IOException {
+    SpringService fibonacciService() throws IOException {
         SpringService service = new SpringService();
         service.setBean(fibonacciPortImpl);
         service.setServiceName(new QName("http://www.revinate.com/sample", "SampleService"));
@@ -53,7 +53,7 @@ public class Application {
     }
 
     @Bean
-    public SpringBinding fibonacciBinding() throws Exception {
+    SpringBinding fibonacciBinding() throws Exception {
         SpringBinding binding = new SpringBinding();
         binding.setUrl("/service/fibonacci");
         binding.setService(fibonacciService().getObject());

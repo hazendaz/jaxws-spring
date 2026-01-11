@@ -51,19 +51,19 @@ public class Application {
     }
 
     @Bean
-    public WSSpringServlet jaxwsServlet() {
+    WSSpringServlet jaxwsServlet() {
         return new WSSpringServlet();
     }
 
     @Bean
-    public ServletRegistrationBean jaxwsServletRegistration() {
+    ServletRegistrationBean<WSSpringServlet> jaxwsServletRegistration() {
         ServletRegistrationBean<WSSpringServlet> bean = new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
         bean.setLoadOnStartup(1);
         return bean;
     }
 
     @Bean
-    public SpringService fibonacciService() throws IOException {
+    SpringService fibonacciService() throws IOException {
         SpringService service = new SpringService();
         service.setBean(fibonacciPort);
         service.setServiceName(new QName("http://www.revinate.com/sample", "SampleService"));
@@ -74,7 +74,7 @@ public class Application {
     }
 
     @Bean
-    public SpringService factorialService() throws IOException {
+    SpringService factorialService() throws IOException {
         SpringService service = new SpringService();
         service.setBean(factorialPort);
         service.setServiceName(new QName("http://www.revinate.com/sample", "SampleService"));
@@ -85,7 +85,7 @@ public class Application {
     }
 
     @Bean
-    public SpringBinding fibonacciBinding() throws Exception {
+    SpringBinding fibonacciBinding() throws Exception {
         SpringBinding binding = new SpringBinding();
         binding.setUrl("/service/fibonacci");
         binding.setService(fibonacciService().getObject());
@@ -93,7 +93,7 @@ public class Application {
     }
 
     @Bean
-    public SpringBinding factorialBinding() throws Exception {
+    SpringBinding factorialBinding() throws Exception {
         SpringBinding binding = new SpringBinding();
         binding.setUrl("/service/factorial");
         binding.setService(factorialService().getObject());
