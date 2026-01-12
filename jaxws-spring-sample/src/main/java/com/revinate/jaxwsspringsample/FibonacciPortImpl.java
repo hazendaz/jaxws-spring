@@ -10,7 +10,7 @@ package com.revinate.jaxwsspringsample;
 import com.revinate.sample.service.FibonacciFault;
 import com.revinate.sample.service.FibonacciPort;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

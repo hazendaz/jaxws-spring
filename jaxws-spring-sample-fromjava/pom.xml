@@ -36,7 +36,7 @@
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jaxws.spring.sample.fromjava</module.name>
 
-        <springboot.plugin>2.7.18</springboot.plugin>
+        <springboot.plugin>4.0.1</springboot.plugin>
     </properties>
 
     <dependencies>
@@ -50,20 +50,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.18</version>
+            <version>4.0.1</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>2.3.3</version>
+            <version>4.0.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>2.3.7</version>
+            <version>4.0.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
