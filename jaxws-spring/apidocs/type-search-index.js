@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"com.revinate.ws.spring","l":"SDDocumentCollector"},{"p":"com.revinate.ws.spring.internal","l":"SpringBinding"},{"p":"com.revinate.ws.spring","l":"SpringService"},{"p":"com.revinate.ws.spring.internal","l":"WSSpringServlet"}];updateSearchResults();
