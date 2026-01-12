@@ -21,7 +21,7 @@
 
     <groupId>com.github.hazendaz.jaxws</groupId>
     <artifactId>jaxws-spring-parent</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
 
     <name>jaxws-spring-parent</name>
@@ -50,7 +50,7 @@
     <scm>
         <connection>scm:git:https://github.com/hazendaz/jaxws-spring</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jaxws-spring.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jaxws-spring-parent-3.0.0</tag>
         <url>https://github.com/hazendaz/jaxws-spring</url>
     </scm>
 
@@ -69,7 +69,7 @@
         <javadoc.java.release.version>17</javadoc.java.release.version>
 
         <!-- Reproducible Builds -->
-        <project.build.outputTimestamp>1768175494</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1768178259</project.build.outputTimestamp>
 
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jaxws.spring.parent</module.name>
