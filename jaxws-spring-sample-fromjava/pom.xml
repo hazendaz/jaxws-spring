@@ -15,12 +15,12 @@
     <parent>
         <groupId>com.github.hazendaz.jaxws</groupId>
         <artifactId>jaxws-spring-parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz.jaxws</groupId>
     <artifactId>jaxws-spring-sample-fromjava</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <name>jaxws-spring-sample-fromjava</name>
     <description>Jaxws Spring Integration Sample From Java</description>
@@ -28,7 +28,7 @@
     <scm>
         <connection>scm:git:https://github.com/hazendaz/jaxws-spring</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/jaxws-spring.git</developerConnection>
-        <tag>jaxws-spring-parent-3.0.0</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/hazendaz/jaxws-spring</url>
     </scm>
 
