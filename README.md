@@ -1,7 +1,10 @@
 # JAX-WS integration with Spring
 
-[![BuildStatus](https://travis-ci.org/revinate/jaxws-spring.svg?branch=master)](https://travis-ci.org/revinate/jaxws-spring)
-[![BuildStatus](https://maven-badges.herokuapp.com/maven-central/com.revinate/jaxws-spring/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.revinate/jaxws-spring)
+[![Java CI](https://github.com/hazendaz/jaxws-spring/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/jaxws-spring/actions/workflows/ci.yaml)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz.jaxws/jaxws-spring.svg)](https://central.sonatype.com/artifact/com.github.hazendaz.jaxws/jaxws-spring)
+[![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+![hazendaz](src/site/resources/images/hazendaz-banner.jpg)
 
 This is a JAX-WS reference implementation ([Metro](https://metro.java.net/))
 extension for integrating with [Spring Framework](https://projects.spring.io/spring-framework/).
