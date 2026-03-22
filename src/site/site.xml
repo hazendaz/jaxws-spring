@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    SPDX-License-Identifier: Apache-2.0
-    Copyright 2011-2026 Hazendaz
+    This project is dual-licensed under the terms of the Common Development and Distribution License (CDDL) v1.0 and the GNU General Public License (GPL) v2.0 with Classpath Exception.
+
+    You may choose either license.
+
+    See LICENSE-CDDL-1.0 and LICENSE-GPL-2.0-CE for full license texts.
 
 -->
 <site name="${project.name}" xmlns="http://maven.apache.org/SITE/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
