@@ -47,7 +47,7 @@ public class WSSpringServletTest {
         servlet.setApplicationContext(webContext);
 
         assertSame(webContext, readField(servlet, "webApplicationContext"));
-        assertEquals(true, readField(servlet, "webApplicationContextInjected"));
+        assertTrue((Boolean) readField(servlet, "webApplicationContextInjected"));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class WSSpringServletTest {
         servlet.destroy();
 
         assertEquals(1, delegate.destroyCalls);
-        assertTrue(!webContext.isActive());
+        org.junit.jupiter.api.Assertions.assertFalse(webContext.isActive());
         assertNull(readField(servlet, "delegate"));
     }
 

@@ -31,7 +31,11 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -56,7 +60,7 @@ public class SpringServiceTest {
         SpringService service = new SpringService();
         service.setImpl(String.class);
 
-        service.setBean("value");
+        service.setBean(new EchoWebService());
 
         assertEquals(String.class, readField(service, "implType"));
     }
@@ -176,8 +180,8 @@ public class SpringServiceTest {
         }
 
         @Override
-        public java.util.Set<javax.xml.namespace.QName> getHeaders() {
-            return java.util.Collections.emptySet();
+        public Set<QName> getHeaders() {
+            return Collections.emptySet();
         }
     }
 }
