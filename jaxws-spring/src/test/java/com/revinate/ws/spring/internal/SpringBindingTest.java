@@ -10,6 +10,12 @@ package com.revinate.ws.spring.internal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.sun.xml.ws.api.server.WSEndpoint;
+import com.sun.xml.ws.transport.http.servlet.ServletAdapter;
+import com.sun.xml.ws.transport.http.servlet.ServletAdapterList;
+
+import jakarta.servlet.ServletContext;
+
 import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
@@ -31,9 +37,50 @@ public class SpringBindingTest {
         assertNull(readField(binding, "endpoint"));
     }
 
+    @Test
+    void createUsesBeanNameWhenConfigured() {
+        SpringBinding binding = new SpringBinding();
+        binding.setBeanName("sample-name");
+        binding.setUrl("/service/sample");
+
+        CapturingServletAdapterList owner = new CapturingServletAdapterList();
+        binding.create(owner);
+
+        assertEquals("sample-name", owner.adapterName);
+        assertEquals("/service/sample", owner.urlPattern);
+    }
+
+    @Test
+    void createFallsBackToUrlPatternWhenBeanNameMissing() {
+        SpringBinding binding = new SpringBinding();
+        binding.setUrl("/service/fallback");
+
+        CapturingServletAdapterList owner = new CapturingServletAdapterList();
+        binding.create(owner);
+
+        assertEquals("/service/fallback", owner.adapterName);
+        assertEquals("/service/fallback", owner.urlPattern);
+    }
+
     private Object readField(SpringBinding binding, String name) throws Exception {
         Field field = SpringBinding.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(binding);
+    }
+
+    private static final class CapturingServletAdapterList extends ServletAdapterList {
+        private String adapterName;
+        private String urlPattern;
+
+        private CapturingServletAdapterList() {
+            super((ServletContext) null);
+        }
+
+        @Override
+        protected ServletAdapter createHttpAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
+            this.adapterName = name;
+            this.urlPattern = urlPattern;
+            return null;
+        }
     }
 }
