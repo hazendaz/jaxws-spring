@@ -62,6 +62,22 @@
         </site>
     </distributionManagement>
 
+    <properties>
+        <!-- Maven compiler options -->
+        <java.version>17</java.version>
+        <java.release.version>17</java.release.version>
+        <javadoc.java.release.version>17</javadoc.java.release.version>
+
+        <!-- Reproducible Builds -->
+        <project.build.outputTimestamp>1768178295</project.build.outputTimestamp>
+
+        <!-- Automatic Module Name -->
+        <module.name>com.github.hazendaz.jaxws.spring.parent</module.name>
+
+        <!-- Disable topSiteURL -->
+        <topSiteURL />
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -86,21 +102,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <properties>
-        <!-- Maven compiler options -->
-        <java.version>17</java.version>
-        <java.release.version>17</java.release.version>
-        <javadoc.java.release.version>17</javadoc.java.release.version>
-
-        <!-- Reproducible Builds -->
-        <project.build.outputTimestamp>1768178295</project.build.outputTimestamp>
-
-        <!-- Automatic Module Name -->
-        <module.name>com.github.hazendaz.jaxws.spring.parent</module.name>
-
-        <!-- Disable topSiteURL -->
-        <topSiteURL />
-    </properties>
 
 </project>
