@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -49,12 +51,38 @@ public class SDDocumentCollectorTest {
     }
 
     @Test
+    void collectDocsReturnsWsdlAndXsdFromJarResource() throws Exception {
+        Path jarFile = tempDir.resolve("docs.jar");
+        try (JarOutputStream output = new JarOutputStream(Files.newOutputStream(jarFile))) {
+            writeJarEntry(output, "sample/service.wsdl", "wsdl");
+            writeJarEntry(output, "sample/schema.xsd", "xsd");
+            writeJarEntry(output, "sample/ignore.txt", "text");
+        }
+
+        URL resourceUrl = new URL("jar:" + jarFile.toUri().toURL() + "!/sample");
+        ClassLoader classLoader = new FixedResourceClassLoader("sample", resourceUrl);
+
+        Map<URL, Object> docs = SDDocumentCollector.collectDocs("sample", classLoader);
+
+        assertEquals(2, docs.size());
+        Set<String> fileNames = docs.keySet().stream().map(this::extractFileName).collect(Collectors.toSet());
+        assertTrue(fileNames.contains("service.wsdl"));
+        assertTrue(fileNames.contains("schema.xsd"));
+    }
+
+    @Test
     void collectDocsReturnsEmptyMapWhenResourceIsMissing() {
         ClassLoader cl = new FixedResourceClassLoader("other", null);
 
         Map<URL, Object> docs = SDDocumentCollector.collectDocs("sample-docs", cl);
 
         assertTrue(docs.isEmpty());
+    }
+
+    private void writeJarEntry(JarOutputStream output, String name, String content) throws Exception {
+        output.putNextEntry(new JarEntry(name));
+        output.write(content.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        output.closeEntry();
     }
 
     private String extractFileName(URL url) {

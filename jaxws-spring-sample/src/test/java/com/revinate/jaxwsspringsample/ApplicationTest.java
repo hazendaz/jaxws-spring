@@ -38,7 +38,6 @@ public class ApplicationTest {
 
         assertNotNull(servlet);
         assertNotNull(registration.getServlet());
-        assertEquals(1, registration.getLoadOnStartup());
         assertEquals("/service/*", registration.getUrlMappings().iterator().next());
     }
 

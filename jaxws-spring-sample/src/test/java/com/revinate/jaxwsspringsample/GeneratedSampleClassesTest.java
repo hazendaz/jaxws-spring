@@ -68,8 +68,8 @@ public class GeneratedSampleClassesTest {
         com.revinate.sample.datatype.FibonacciFault fibonacciFaultInfo = new com.revinate.sample.datatype.FibonacciFault();
         Throwable cause = new IllegalArgumentException("cause");
 
-        com.revinate.sample.service.FibonacciFault fibonacciFault =
-                new com.revinate.sample.service.FibonacciFault("fibonacci-error", fibonacciFaultInfo, cause);
+        com.revinate.sample.service.FibonacciFault fibonacciFault = new com.revinate.sample.service.FibonacciFault(
+                "fibonacci-error", fibonacciFaultInfo, cause);
 
         assertEquals("fibonacci-error", fibonacciFault.getMessage());
         assertSame(cause, fibonacciFault.getCause());

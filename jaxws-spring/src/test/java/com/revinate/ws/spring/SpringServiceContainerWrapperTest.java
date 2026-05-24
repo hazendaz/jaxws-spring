@@ -29,7 +29,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests internal SPI behavior of {@link SpringService.ContainerWrapper}.
+ * Tests internal SPI behavior of SpringService container wrapper logic.
  */
 public class SpringServiceContainerWrapperTest {
 
@@ -102,8 +102,8 @@ public class SpringServiceContainerWrapperTest {
         SpringService service = new SpringService();
         Object wrapper = createContainerWrapper(service);
 
-        com.sun.xml.ws.api.server.Module module =
-                (com.sun.xml.ws.api.server.Module) getSPI(wrapper, com.sun.xml.ws.api.server.Module.class);
+        com.sun.xml.ws.api.server.Module module = (com.sun.xml.ws.api.server.Module) getSPI(wrapper,
+                com.sun.xml.ws.api.server.Module.class);
 
         assertNotNull(module);
         assertNotNull(module.getBoundEndpoints());

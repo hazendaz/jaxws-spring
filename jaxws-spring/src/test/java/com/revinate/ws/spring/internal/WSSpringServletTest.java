@@ -113,8 +113,17 @@ public class WSSpringServletTest {
 
     @Test
     void httpMethodsDelegateToWSServletDelegate() throws Exception {
+        GenericWebApplicationContext webContext = new GenericWebApplicationContext();
+        webContext.refresh();
+
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, webContext);
+        ServletContext servletContext = servletContext(attributes);
+
         WSSpringServlet servlet = new WSSpringServlet();
-        RecordingDelegate delegate = new RecordingDelegate(servletContext(new HashMap<>()));
+        servlet.init(new SimpleServletConfig(servletContext));
+
+        RecordingDelegate delegate = new RecordingDelegate(servletContext);
         writeField(servlet, "delegate", delegate);
 
         HttpServletRequest request = proxy(HttpServletRequest.class);
@@ -131,6 +140,8 @@ public class WSSpringServletTest {
         assertEquals(1, delegate.putCalls);
         assertEquals(1, delegate.deleteCalls);
         assertEquals(1, delegate.headCalls);
+
+        webContext.close();
     }
 
     private Object readField(Object target, String name) throws Exception {
@@ -167,23 +178,24 @@ public class WSSpringServletTest {
     }
 
     private static <T> T proxy(Class<T> type, Invocations invocations) {
-        return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, (proxy, method, args) -> {
-            Object value = invocations.call(method.getName(), args == null ? new Object[0] : args);
-            if (value != null) {
-                return value;
-            }
-            Class<?> returnType = method.getReturnType();
-            if (!returnType.isPrimitive()) {
-                return null;
-            }
-            if (returnType == boolean.class) {
-                return false;
-            }
-            if (returnType == char.class) {
-                return '\0';
-            }
-            return 0;
-        }));
+        return type
+                .cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, (proxy, method, args) -> {
+                    Object value = invocations.call(method.getName(), args == null ? new Object[0] : args);
+                    if (value != null) {
+                        return value;
+                    }
+                    Class<?> returnType = method.getReturnType();
+                    if (!returnType.isPrimitive()) {
+                        return null;
+                    }
+                    if (returnType == boolean.class) {
+                        return false;
+                    }
+                    if (returnType == char.class) {
+                        return '\0';
+                    }
+                    return 0;
+                }));
     }
 
     private interface Invocations {
