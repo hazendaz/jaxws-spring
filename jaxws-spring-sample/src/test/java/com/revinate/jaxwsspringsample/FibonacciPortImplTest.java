@@ -17,7 +17,10 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 
-class FibonacciPortImplTest {
+/**
+ * Tests for {@link FibonacciPortImpl}.
+ */
+public class FibonacciPortImplTest {
 
     @Test
     void fibonacciDelegatesToNumberServiceForValidIndex() throws Exception {

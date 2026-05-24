@@ -17,7 +17,10 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 
-class FactorialPortImplTest {
+/**
+ * Tests for {@link FactorialPortImpl}.
+ */
+public class FactorialPortImplTest {
 
     @Test
     void factorialDelegatesToNumberServiceForValidInput() throws Exception {

@@ -20,7 +20,10 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-class SDDocumentCollectorTest {
+/**
+ * Tests for {@link SDDocumentCollector}.
+ */
+public class SDDocumentCollectorTest {
 
     @TempDir
     Path tempDir;

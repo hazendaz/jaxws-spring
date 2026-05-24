@@ -11,7 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-class NumberServiceTest {
+/**
+ * Tests for {@link NumberService}.
+ */
+public class NumberServiceTest {
 
     @Test
     void fibonacciComputesExpectedValues() {

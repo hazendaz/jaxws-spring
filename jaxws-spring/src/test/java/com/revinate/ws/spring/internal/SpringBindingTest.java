@@ -14,7 +14,10 @@ import java.lang.reflect.Field;
 
 import org.junit.jupiter.api.Test;
 
-class SpringBindingTest {
+/**
+ * Tests for {@link SpringBinding}.
+ */
+public class SpringBindingTest {
 
     @Test
     void settersStoreConfiguredValues() throws Exception {

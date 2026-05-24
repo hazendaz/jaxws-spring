@@ -11,7 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-class FibonacciExceptionTest {
+/**
+ * Tests for {@link FibonacciException}.
+ */
+public class FibonacciExceptionTest {
 
     @Test
     void constructorSetsMessageAndDetail() {
