@@ -1,6 +1,7 @@
 # JAX-WS integration with Spring
 
 [![Java CI](https://github.com/hazendaz/jaxws-spring/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/jaxws-spring/actions/workflows/ci.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/hazendaz/jaxws-spring/badge.svg?branch=master)](https://coveralls.io/github/hazendaz/jaxws-spring?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz.jaxws/jaxws-spring.svg)](https://central.sonatype.com/artifact/com.github.hazendaz.jaxws/jaxws-spring)
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
