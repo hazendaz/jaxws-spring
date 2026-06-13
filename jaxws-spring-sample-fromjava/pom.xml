@@ -36,8 +36,21 @@
         <!-- Automatic Module Name -->
         <module.name>com.github.hazendaz.jaxws.spring.sample.fromjava</module.name>
 
-        <springboot.plugin>4.0.1</springboot.plugin>
+        <slf4j.version>2.0.18</slf4j.version>
+        <springboot.plugin>4.1.0</springboot.plugin>
     </properties>
+
+    <dependencyManagement>    
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-bom</artifactId>
+                <version>${slf4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -50,7 +63,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>4.0.6</version>
+            <version>4.1.0</version>
             <scope>compile</scope>
         </dependency>
 
