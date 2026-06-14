@@ -41,7 +41,7 @@
         <springboot.plugin>4.1.0</springboot.plugin>
     </properties>
 
-    <dependencyManagement>    
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.slf4j</groupId>
