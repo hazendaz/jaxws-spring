@@ -39,7 +39,7 @@
         <jaxws.plugin>2.3.7</jaxws.plugin>
         <slf4j.version>2.0.18</slf4j.version>
         <spring.version>5.3.39</spring.version>
-        <springboot.plugin>2.7.18</springboot.plugin>
+        <springboot.plugin>4.1.0</springboot.plugin>
     </properties>
 
     <dependencyManagement>
