@@ -37,7 +37,7 @@
         <module.name>com.github.hazendaz.jaxws.spring.sample</module.name>
 
         <jaxws.plugin>2.3.7</jaxws.plugin>
-        <slf4j.version>2.0.18</slf4j.version>
+        <slf4j.version>2.0.19</slf4j.version>
         <spring.version>5.3.39</spring.version>
         <springboot.plugin>2.7.18</springboot.plugin>
     </properties>
