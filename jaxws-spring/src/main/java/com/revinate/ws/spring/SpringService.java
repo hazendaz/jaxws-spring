@@ -32,6 +32,7 @@ import jakarta.xml.ws.soap.SOAPBinding;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -422,8 +423,8 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
         if (url == null) {
             try {
-                url = new URL(resourceLocation);
-            } catch (MalformedURLException e) {
+                url = URI.create(resourceLocation).toURL();
+            } catch (IllegalArgumentException | MalformedURLException e) {
                 // ignore it throw exception later
             }
         }
