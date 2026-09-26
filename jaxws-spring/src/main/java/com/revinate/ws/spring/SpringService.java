@@ -424,7 +424,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
         if (url == null) {
             try {
                 url = URI.create(resourceLocation).toURL();
-            } catch (MalformedURLException e) {
+            } catch (IllegalArgumentException | MalformedURLException e) {
                 // ignore it throw exception later
             }
         }
