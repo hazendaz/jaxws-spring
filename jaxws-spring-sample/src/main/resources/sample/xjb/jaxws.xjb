@@ -1,5 +1,3 @@
-<bindings xmlns="http://java.sun.com/xml/ns/jaxws"
-          wsdlLocation="../wsdl/SampleService.wsdl"
-          version="2.1">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxws" version="3.0">
   <package name="com.revinate.sample.service"/>
 </bindings>
