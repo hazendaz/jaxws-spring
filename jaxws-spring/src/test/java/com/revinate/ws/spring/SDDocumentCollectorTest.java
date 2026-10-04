@@ -10,6 +10,7 @@ package com.revinate.ws.spring;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -59,7 +60,7 @@ public class SDDocumentCollectorTest {
             writeJarEntry(output, "sample/ignore.txt", "text");
         }
 
-        URL resourceUrl = new URL("jar:" + jarFile.toUri().toURL() + "!/sample");
+        URL resourceUrl = URI.create("jar:" + jarFile.toUri() + "!/sample").toURL();
         ClassLoader classLoader = new FixedResourceClassLoader("sample", resourceUrl);
 
         Map<URL, Object> docs = SDDocumentCollector.collectDocs("sample", classLoader);

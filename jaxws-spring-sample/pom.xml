@@ -125,6 +125,7 @@
                                 <bindingFile>jaxb.xjb</bindingFile>
                                 <bindingFile>jaxws.xjb</bindingFile>
                             </bindingFiles>
+                            <wsdlLocation>/sample/wsdl/SampleService.wsdl</wsdlLocation>
                             <wsdlDirectory>${project.basedir}/src/main/resources/sample/wsdl</wsdlDirectory>
                         </configuration>
                     </execution>
