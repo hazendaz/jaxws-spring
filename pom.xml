@@ -68,6 +68,9 @@
         <java.release.version>17</java.release.version>
         <javadoc.java.release.version>17</javadoc.java.release.version>
 
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.67</jacoco.minimum.coverage>
+
         <!-- Reproducible Builds -->
         <project.build.outputTimestamp>1781425079</project.build.outputTimestamp>
 
