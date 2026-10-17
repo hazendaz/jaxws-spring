@@ -71,6 +71,9 @@
         <!-- Jacoco minimum code coverage -->
         <jacoco.minimum.coverage>0.67</jacoco.minimum.coverage>
 
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.67</jacoco.minimum.coverage>
+
         <!-- Reproducible Builds -->
         <project.build.outputTimestamp>1781425890</project.build.outputTimestamp>
 
