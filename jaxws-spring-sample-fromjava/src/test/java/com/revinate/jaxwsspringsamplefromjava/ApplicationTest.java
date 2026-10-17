@@ -27,6 +27,9 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
  */
 public class ApplicationTest {
 
+    /**
+     * Jaxws servlet beans are configured.
+     */
     @Test
     void jaxwsServletBeansAreConfigured() {
         Application application = new Application();
@@ -39,6 +42,12 @@ public class ApplicationTest {
         assertEquals("/service/*", registration.getUrlMappings().iterator().next());
     }
 
+    /**
+     * Fibonacci service configures expected Q names.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void fibonacciServiceConfiguresExpectedQNames() throws Exception {
         Application application = new Application();
@@ -52,6 +61,12 @@ public class ApplicationTest {
                 readSpringServiceField(service, "portName"));
     }
 
+    /**
+     * Fibonacci binding uses expected url.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void fibonacciBindingUsesExpectedUrl() throws Exception {
         TestableApplication application = new TestableApplication();
@@ -61,31 +76,82 @@ public class ApplicationTest {
         assertEquals("/service/fibonacci", readSpringBindingField(binding, "urlPattern"));
     }
 
+    /**
+     * Sets the field.
+     *
+     * @param target
+     *            the target
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void setField(Object target, String name, Object value) throws Exception {
         Field field = Application.class.getDeclaredField(name);
         field.setAccessible(true);
         field.set(target, value);
     }
 
+    /**
+     * Read spring service field.
+     *
+     * @param service
+     *            the service
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readSpringServiceField(SpringService service, String name) throws Exception {
         Field field = SpringService.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(service);
     }
 
+    /**
+     * Read spring binding field.
+     *
+     * @param binding
+     *            the binding
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readSpringBindingField(SpringBinding binding, String name) throws Exception {
         Field field = SpringBinding.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(binding);
     }
 
+    /**
+     * The Class TestableApplication.
+     */
     private static final class TestableApplication extends Application {
+
+        /**
+         * Fibonacci service.
+         *
+         * @return the spring service
+         */
         @Override
         SpringService fibonacciService() {
             return new StubSpringService();
         }
     }
 
+    /**
+     * The Class StubSpringService.
+     */
     private static final class StubSpringService extends SpringService {
         @Override
         public WSEndpoint<?> getObject() {

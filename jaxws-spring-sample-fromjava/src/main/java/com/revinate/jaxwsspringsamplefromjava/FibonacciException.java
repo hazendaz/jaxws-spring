@@ -7,16 +7,35 @@
  */
 package com.revinate.jaxwsspringsamplefromjava;
 
+/**
+ * The Class FibonacciException.
+ */
 public class FibonacciException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+
+    /** The detail. */
     private final String detail;
 
+    /**
+     * Instantiates a new fibonacci exception.
+     *
+     * @param message
+     *            the message
+     * @param detail
+     *            the detail
+     */
     public FibonacciException(String message, String detail) {
         super(message);
         this.detail = detail;
     }
 
+    /**
+     * Gets the detail.
+     *
+     * @return the detail
+     */
     public String getDetail() {
         return detail;
     }

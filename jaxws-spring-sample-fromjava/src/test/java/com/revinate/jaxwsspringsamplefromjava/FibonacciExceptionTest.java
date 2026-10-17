@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
  */
 public class FibonacciExceptionTest {
 
+    /**
+     * Constructor sets message and detail.
+     */
     @Test
     void constructorSetsMessageAndDetail() {
         FibonacciException exception = new FibonacciException("message", "detail");

@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
  */
 public class NumberServiceTest {
 
+    /**
+     * Fibonacci computes expected values.
+     */
     @Test
     void fibonacciComputesExpectedValues() {
         NumberService service = new NumberService();

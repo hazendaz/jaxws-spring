@@ -44,9 +44,13 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public class SpringServiceTest {
 
+    /** The temp dir. */
     @TempDir
     Path tempDir;
 
+    /**
+     * Sets the assembler rejects unsupported type.
+     */
     @Test
     void setAssemblerRejectsUnsupportedType() {
         SpringService service = new SpringService();
@@ -54,6 +58,12 @@ public class SpringServiceTest {
         assertThrows(IllegalArgumentException.class, () -> service.setAssembler("invalid"));
     }
 
+    /**
+     * Sets the bean does not override previously configured impl type.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void setBeanDoesNotOverridePreviouslyConfiguredImplType() throws Exception {
         SpringService service = new SpringService();
@@ -64,6 +74,12 @@ public class SpringServiceTest {
         assertEquals(String.class, readField(service, "implType"));
     }
 
+    /**
+     * After properties set converts primary wsdl and metadata from urls.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void afterPropertiesSetConvertsPrimaryWsdlAndMetadataFromUrls() throws Exception {
         Path primaryWsdl = Files.writeString(tempDir.resolve("primary.wsdl"), "wsdl");
@@ -80,6 +96,12 @@ public class SpringServiceTest {
         assertEquals(1, metadata.size());
     }
 
+    /**
+     * After properties set converts string resources using absolute urls.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void afterPropertiesSetConvertsStringResourcesUsingAbsoluteUrls() throws Exception {
         SpringService service = new SpringService();
@@ -95,6 +117,9 @@ public class SpringServiceTest {
         assertEquals(1, metadata.size());
     }
 
+    /**
+     * After properties set rejects unknown metadata resource type.
+     */
     @Test
     void afterPropertiesSetRejectsUnknownMetadataResourceType() {
         SpringService service = new SpringService();
@@ -103,6 +128,12 @@ public class SpringServiceTest {
         assertThrows(IllegalArgumentException.class, service::afterPropertiesSet);
     }
 
+    /**
+     * After properties set rejects invalid string primary wsdl location.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void afterPropertiesSetRejectsInvalidStringPrimaryWsdlLocation() throws Exception {
         SpringService service = new SpringService();
@@ -112,8 +143,14 @@ public class SpringServiceTest {
         assertThrows(ServerRtException.class, service::afterPropertiesSet);
     }
 
+    /**
+     * Gets the object creates endpoint once and applies handlers.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getObjectCreatesEndpointOnceAndAppliesHandlers() throws Exception {
+    void objectCreatesEndpointOnceAndAppliesHandlers() throws Exception {
         SpringService service = new SpringService();
         service.setBean(new EchoWebService());
         service.setHandlers(List.of(new NoOpHandler()));
@@ -128,8 +165,14 @@ public class SpringServiceTest {
         assertEquals(1, binding.getHandlerChain().size());
     }
 
+    /**
+     * Gets the object rejects using binding and binding id together.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getObjectRejectsUsingBindingAndBindingIdTogether() throws Exception {
+    void objectRejectsUsingBindingAndBindingIdTogether() throws Exception {
         SpringService service = new SpringService();
         service.setBean(new EchoWebService());
         service.setBinding(BindingImpl.create(BindingID.parse(SOAPBinding.SOAP11HTTP_BINDING)));
@@ -138,8 +181,14 @@ public class SpringServiceTest {
         assertThrows(IllegalStateException.class, service::getObject);
     }
 
+    /**
+     * Gets the object rejects using binding and features together.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getObjectRejectsUsingBindingAndFeaturesTogether() throws Exception {
+    void objectRejectsUsingBindingAndFeaturesTogether() throws Exception {
         SpringService service = new SpringService();
         service.setBean(new EchoWebService());
         service.setBinding(BindingImpl.create(BindingID.parse(SOAPBinding.SOAP11HTTP_BINDING)));
@@ -148,20 +197,48 @@ public class SpringServiceTest {
         assertThrows(IllegalStateException.class, service::getObject);
     }
 
+    /**
+     * Read field.
+     *
+     * @param target
+     *            the target
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readField(Object target, String name) throws Exception {
         Field field = SpringService.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(target);
     }
 
+    /**
+     * The Class EchoWebService.
+     */
     @WebService
     public static class EchoWebService {
+
+        /**
+         * Echo.
+         *
+         * @param value
+         *            the value
+         *
+         * @return the string
+         */
         @WebMethod
         public String echo(String value) {
             return value;
         }
     }
 
+    /**
+     * The Class NoOpHandler.
+     */
     private static final class NoOpHandler implements SOAPHandler<SOAPMessageContext> {
         @Override
         public boolean handleMessage(SOAPMessageContext context) {

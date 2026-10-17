@@ -22,6 +22,12 @@ import org.junit.jupiter.api.Test;
  */
 public class FibonacciPortImplTest {
 
+    /**
+     * Fibonacci delegates to number service for valid index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void fibonacciDelegatesToNumberServiceForValidIndex() throws Exception {
         FibonacciPortImpl port = new FibonacciPortImpl();
@@ -32,6 +38,12 @@ public class FibonacciPortImplTest {
         assertEquals(5, result);
     }
 
+    /**
+     * Fibonacci throws fault for negative index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void fibonacciThrowsFaultForNegativeIndex() throws Exception {
         FibonacciPortImpl port = new FibonacciPortImpl();
@@ -44,6 +56,17 @@ public class FibonacciPortImplTest {
         assertEquals("Index: -3", fault.getFaultInfo().getFaultInfo());
     }
 
+    /**
+     * Inject number service.
+     *
+     * @param port
+     *            the port
+     * @param service
+     *            the service
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void injectNumberService(FibonacciPortImpl port, NumberService service) throws Exception {
         Field field = FibonacciPortImpl.class.getDeclaredField("numberService");
         field.setAccessible(true);

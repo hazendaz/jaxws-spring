@@ -15,10 +15,14 @@ import jakarta.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class FibonacciPortImpl.
+ */
 @WebService(endpointInterface = "com.revinate.sample.service.FibonacciPort")
 @Component
 public class FibonacciPortImpl implements FibonacciPort {
 
+    /** The number service. */
     @Autowired
     private NumberService numberService;
 

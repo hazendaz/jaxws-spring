@@ -28,9 +28,16 @@ import org.junit.jupiter.api.io.TempDir;
  */
 public class SDDocumentCollectorTest {
 
+    /** The temp dir. */
     @TempDir
     Path tempDir;
 
+    /**
+     * Collect docs returns wsdl and xsd from directory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void collectDocsReturnsWsdlAndXsdFromDirectory() throws Exception {
         Path docsDir = Files.createDirectory(tempDir.resolve("sample-docs"));
@@ -51,6 +58,12 @@ public class SDDocumentCollectorTest {
         assertTrue(fileNames.contains("nested.wsdl"));
     }
 
+    /**
+     * Collect docs returns wsdl and xsd from jar resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void collectDocsReturnsWsdlAndXsdFromJarResource() throws Exception {
         Path jarFile = tempDir.resolve("docs.jar");
@@ -71,6 +84,9 @@ public class SDDocumentCollectorTest {
         assertTrue(fileNames.contains("schema.xsd"));
     }
 
+    /**
+     * Collect docs returns empty map when resource is missing.
+     */
     @Test
     void collectDocsReturnsEmptyMapWhenResourceIsMissing() {
         ClassLoader cl = new FixedResourceClassLoader("other", null);
@@ -80,21 +96,57 @@ public class SDDocumentCollectorTest {
         assertTrue(docs.isEmpty());
     }
 
+    /**
+     * Write jar entry.
+     *
+     * @param output
+     *            the output
+     * @param name
+     *            the name
+     * @param content
+     *            the content
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void writeJarEntry(JarOutputStream output, String name, String content) throws Exception {
         output.putNextEntry(new JarEntry(name));
         output.write(content.getBytes(java.nio.charset.StandardCharsets.UTF_8));
         output.closeEntry();
     }
 
+    /**
+     * Extract file name.
+     *
+     * @param url
+     *            the url
+     *
+     * @return the string
+     */
     private String extractFileName(URL url) {
         String path = url.getPath();
         return path.substring(path.lastIndexOf('/') + 1);
     }
 
+    /**
+     * The Class FixedResourceClassLoader.
+     */
     private static final class FixedResourceClassLoader extends ClassLoader {
+
+        /** The resource name. */
         private final String resourceName;
+
+        /** The resource url. */
         private final URL resourceUrl;
 
+        /**
+         * Instantiates a new fixed resource class loader.
+         *
+         * @param resourceName
+         *            the resource name
+         * @param resourceUrl
+         *            the resource url
+         */
         private FixedResourceClassLoader(String resourceName, URL resourceUrl) {
             this.resourceName = resourceName;
             this.resourceUrl = resourceUrl;

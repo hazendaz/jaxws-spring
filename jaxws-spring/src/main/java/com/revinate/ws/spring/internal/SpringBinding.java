@@ -19,8 +19,13 @@ import org.springframework.beans.factory.BeanNameAware;
  */
 public class SpringBinding implements BeanNameAware {
 
+    /** The bean name. */
     private String beanName;
+
+    /** The url pattern. */
     private String urlPattern;
+
+    /** The endpoint. */
     private WSEndpoint<?> endpoint;
 
     @Override
@@ -28,6 +33,12 @@ public class SpringBinding implements BeanNameAware {
         this.beanName = name;
     }
 
+    /**
+     * Creates the.
+     *
+     * @param owner
+     *            the owner
+     */
     public void create(ServletAdapterList owner) {
         String name = beanName;
         if (name == null) {
@@ -38,6 +49,9 @@ public class SpringBinding implements BeanNameAware {
 
     /**
      * URL pattern to which this service is bound.
+     *
+     * @param urlPattern
+     *            the new url
      */
     public void setUrl(String urlPattern) {
         this.urlPattern = urlPattern;
@@ -45,6 +59,9 @@ public class SpringBinding implements BeanNameAware {
 
     /**
      * The service to be bound to the specified URL.
+     *
+     * @param endpoint
+     *            the new service
      */
     public void setService(WSEndpoint<?> endpoint) {
         this.endpoint = endpoint;

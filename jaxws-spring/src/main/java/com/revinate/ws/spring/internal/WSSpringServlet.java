@@ -35,17 +35,30 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class WSSpringServlet extends HttpServlet implements ApplicationContextAware {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2786173009814679145L;
 
+    /** The delegate. */
     private WSServletDelegate delegate;
 
+    /** The web application context. */
     private WebApplicationContext webApplicationContext;
 
+    /** The web application context injected. */
     private boolean webApplicationContextInjected = false;
 
+    /**
+     * Instantiates a new WS spring servlet.
+     */
     public WSSpringServlet() {
     }
 
+    /**
+     * Instantiates a new WS spring servlet.
+     *
+     * @param webApplicationContext
+     *            the web application context
+     */
     public WSSpringServlet(WebApplicationContext webApplicationContext) {
         this.webApplicationContext = webApplicationContext;
     }
@@ -78,6 +91,11 @@ public class WSSpringServlet extends HttpServlet implements ApplicationContextAw
         delegate = new WSServletDelegate(l, getServletContext());
     }
 
+    /**
+     * Inits the web application context.
+     *
+     * @return the web application context
+     */
     protected WebApplicationContext initWebApplicationContext() {
         if (this.webApplicationContext != null) {
             return this.webApplicationContext;

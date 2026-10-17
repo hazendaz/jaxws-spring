@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
  */
 public class NumberServiceTest {
 
+    /**
+     * Fibonacci computes expected values.
+     */
     @Test
     void fibonacciComputesExpectedValues() {
         NumberService service = new NumberService();
@@ -25,6 +28,9 @@ public class NumberServiceTest {
         assertEquals(8, service.fibonacci(6));
     }
 
+    /**
+     * Factorial computes expected values.
+     */
     @Test
     void factorialComputesExpectedValues() {
         NumberService service = new NumberService();

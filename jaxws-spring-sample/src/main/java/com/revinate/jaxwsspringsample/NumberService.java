@@ -9,9 +9,20 @@ package com.revinate.jaxwsspringsample;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * The Class NumberService.
+ */
 @Service
 public class NumberService {
 
+    /**
+     * Fibonacci.
+     *
+     * @param index
+     *            the index
+     *
+     * @return the int
+     */
     public int fibonacci(int index) {
         if (index == 0) {
             return 0;
@@ -22,6 +33,14 @@ public class NumberService {
         return fibonacci(index - 1) + fibonacci(index - 2);
     }
 
+    /**
+     * Factorial.
+     *
+     * @param number
+     *            the number
+     *
+     * @return the int
+     */
     public int factorial(int number) {
         return number <= 1 ? 1 : number * factorial(number - 1);
     }

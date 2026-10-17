@@ -28,6 +28,12 @@ import org.junit.jupiter.api.Test;
  */
 public class SpringBindingTest {
 
+    /**
+     * Setters store configured values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void settersStoreConfiguredValues() throws Exception {
         SpringBinding binding = new SpringBinding();
@@ -40,6 +46,12 @@ public class SpringBindingTest {
         assertNull(readField(binding, "endpoint"));
     }
 
+    /**
+     * Creates the uses bean name when configured.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void createUsesBeanNameWhenConfigured() throws Exception {
         SpringBinding binding = new SpringBinding();
@@ -54,6 +66,12 @@ public class SpringBindingTest {
         assertEquals("/service/sample", owner.urlPattern);
     }
 
+    /**
+     * Creates the falls back to url pattern when bean name missing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void createFallsBackToUrlPatternWhenBeanNameMissing() throws Exception {
         SpringBinding binding = new SpringBinding();
@@ -67,30 +85,70 @@ public class SpringBindingTest {
         assertEquals("/service/fallback", owner.urlPattern);
     }
 
+    /**
+     * Creates the endpoint.
+     *
+     * @return the WS endpoint
+     *
+     * @throws Exception
+     *             the exception
+     */
     private WSEndpoint<?> createEndpoint() throws Exception {
         SpringService service = new SpringService();
         service.setBean(new TestWebService());
         return service.getObject();
     }
 
+    /**
+     * Read field.
+     *
+     * @param binding
+     *            the binding
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readField(SpringBinding binding, String name) throws Exception {
         Field field = SpringBinding.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(binding);
     }
 
+    /**
+     * The Class TestWebService.
+     */
     @WebService
     public static class TestWebService {
+
+        /**
+         * Ping.
+         *
+         * @return the string
+         */
         @WebMethod
         public String ping() {
             return "pong";
         }
     }
 
+    /**
+     * The Class CapturingServletAdapterList.
+     */
     private static final class CapturingServletAdapterList extends ServletAdapterList {
+
+        /** The adapter name. */
         private String adapterName;
+
+        /** The url pattern. */
         private String urlPattern;
 
+        /**
+         * Instantiates a new capturing servlet adapter list.
+         */
         private CapturingServletAdapterList() {
             super((ServletContext) null);
         }
