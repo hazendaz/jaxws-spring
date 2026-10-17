@@ -22,6 +22,7 @@ public class FactorialPortImpl implements FactorialPort {
     @Autowired
     private NumberService numberService;
 
+    @Override
     public int factorial(int number) throws FactorialFault {
         if (number < 0) {
             String message = "Number cannot be negative.";

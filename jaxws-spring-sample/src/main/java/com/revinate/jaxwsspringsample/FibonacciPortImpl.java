@@ -22,6 +22,7 @@ public class FibonacciPortImpl implements FibonacciPort {
     @Autowired
     private NumberService numberService;
 
+    @Override
     public int fibonacci(int index) throws FibonacciFault {
         if (index < 0) {
             String message = "Index cannot be negative.";

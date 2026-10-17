@@ -378,12 +378,12 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     private SDDocumentSource resolveSDDocumentSource(Object resource) {
         SDDocumentSource source;
 
-        if (resource instanceof String) {
-            source = this.convertStringToSource((String) resource);
-        } else if (resource instanceof URL) {
-            source = SDDocumentSource.create((URL) resource);
-        } else if (resource instanceof SDDocumentSource) {
-            source = (SDDocumentSource) resource;
+        if (resource instanceof String stringResource) {
+            source = this.convertStringToSource(stringResource);
+        } else if (resource instanceof URL urlResource) {
+            source = SDDocumentSource.create(urlResource);
+        } else if (resource instanceof SDDocumentSource sdDocumentSourceResource) {
+            source = sdDocumentSourceResource;
         } else {
             throw new IllegalArgumentException(
                     "Unknown type \"" + resource.getClass().getName() + "\" for resource " + resource);
@@ -458,7 +458,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 if (assembler instanceof TubelineAssembler) {
                     return spiType.cast(new TubelineAssemblerFactory() {
                         @Override
-                        public TubelineAssembler doCreate(BindingID bindingId) {
+                        public TubelineAssembler doCreate(BindingID bindingID) {
                             return (TubelineAssembler) assembler;
                         }
                     });

@@ -52,8 +52,8 @@ public class WSSpringServlet extends HttpServlet implements ApplicationContextAw
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
-        if (this.webApplicationContext == null && applicationContext instanceof WebApplicationContext) {
-            this.webApplicationContext = (WebApplicationContext) applicationContext;
+        if (this.webApplicationContext == null && applicationContext instanceof WebApplicationContext webAppContext) {
+            this.webApplicationContext = webAppContext;
             this.webApplicationContextInjected = true;
         }
     }
