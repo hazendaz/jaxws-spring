@@ -15,13 +15,18 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class FactorialPortImpl.
+ */
 @WebService(endpointInterface = "com.revinate.sample.service.FactorialPort")
 @Component
 public class FactorialPortImpl implements FactorialPort {
 
+    /** The number service. */
     @Autowired
     private NumberService numberService;
 
+    @Override
     public int factorial(int number) throws FactorialFault {
         if (number < 0) {
             String message = "Number cannot be negative.";

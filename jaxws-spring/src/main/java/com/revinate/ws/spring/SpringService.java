@@ -51,13 +51,21 @@ import org.xml.sax.EntityResolver;
  */
 public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAware, InitializingBean {
 
+    /** The impl type. */
     @NotNull
     private Class<?> implType;
 
+    /** The invoker. */
     // everything else can be null
     private Invoker invoker;
+
+    /** The service name. */
     private QName serviceName;
+
+    /** The port name. */
     private QName portName;
+
+    /** The container. */
     private Container container;
 
     /**
@@ -100,11 +108,15 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     // either everything is null, in which case we default to SOAP 1.1 + features from annotation
 
+    /** The binding. */
     // ... or a WSBinding configured externally
     private WSBinding binding;
 
+    /** The binding ID. */
     // ... or a BindingID and features
     private BindingID bindingID;
+
+    /** The features. */
     private List<WebServiceFeature> features;
 
     /**
@@ -114,6 +126,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      */
     private List<Handler> handlers;
 
+    /** The servlet context. */
     private ServletContext servletContext;
 
     /**
@@ -126,6 +139,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Fully qualified class name of the SEI class. Required.
+     *
+     * @param implType
+     *            the new impl
      */
     public void setImpl(Class implType) {
         this.implType = implType;
@@ -133,6 +149,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Sets the bean that implements the web service methods.
+     *
+     * @param sei
+     *            the new bean
      */
     public void setBean(Object sei) {
         this.invoker = InstanceResolver.createSingleton(sei).createInvoker();
@@ -146,6 +165,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     /**
      * Sets {@link Invoker} for this endpoint. Defaults to {@link InstanceResolver#createDefault(Class) the standard
      * invoker}.
+     *
+     * @param invoker
+     *            the new invoker
      */
     public void setInvoker(Invoker invoker) {
         this.invoker = invoker;
@@ -157,6 +179,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * This is an advanced configuration option for those who would like to control what processing JAX-WS runtime
      * performs. The default value is {@code null}, in which case the {@link TubelineAssemblerFactory} is looked up from
      * the <code>META-INF/services</code>.
+     *
+     * @param assembler
+     *            the new assembler
      */
     public void setAssembler(Object assembler) {
         if (assembler instanceof TubelineAssembler || assembler instanceof TubelineAssemblerFactory) {
@@ -168,6 +193,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Sets the service name of this endpoint. Defaults to the name inferred from the impl attribute.
+     *
+     * @param serviceName
+     *            the new service name
      */
     public void setServiceName(QName serviceName) {
         this.serviceName = serviceName;
@@ -175,6 +203,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Sets the port name of this endpoint. Defaults to the name inferred from the impl attribute.
+     *
+     * @param portName
+     *            the new port name
      */
     public void setPortName(QName portName) {
         this.portName = portName;
@@ -182,6 +213,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Sets the custom {@link Container}. Optional.
+     *
+     * @param container
+     *            the new container
      */
     // TODO: how to set the default container?
     public void setContainer(Container container) {
@@ -190,6 +224,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Accepts an externally configured {@link WSBinding} for advanced users.
+     *
+     * @param binding
+     *            the new binding
      */
     // is there a better way to do this in Spring?
     // http://opensource.atlassian.com/projects/spring/browse/SPR-2528?page=all
@@ -205,6 +242,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * If none is specified, {@link BindingType} annotation on SEI is consulted. If that fails,
      * {@link SOAPBinding#SOAP11HTTP_BINDING}.
      *
+     * @param id
+     *            the new binding ID
+     *
      * @see SOAPBinding#SOAP11HTTP_BINDING
      * @see SOAPBinding#SOAP12HTTP_BINDING
      * @see HTTPBinding#HTTP_BINDING
@@ -215,6 +255,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * {@link WebServiceFeature}s that are activated in this endpoint.
+     *
+     * @param features
+     *            the new features
      */
     public void setFeatures(List<WebServiceFeature> features) {
         this.features = features;
@@ -226,6 +269,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * If there's just one handler and that handler is declared elsewhere, you can use this as a nested attribute like
      * <code>handlers="#myHandler"</code>. Or otherwise a nested &lt;bean&gt; or &lt;ref&gt; tag can be used to specify
      * multiple handlers.
+     *
+     * @param handlers
+     *            the new handlers
      */
     public void setHandlers(List<Handler> handlers) {
         this.handlers = handlers;
@@ -240,6 +286,12 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p>
      * If <code>primaryWsdl</code> is a <code>String</code>, {@link ServletContext} (if available) and
      * {@link ClassLoader} are searched for this path, then failing that, it's treated as an absolute {@link URL}.
+     *
+     * @param primaryWsdl
+     *            the new primary wsdl
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void setPrimaryWsdl(Object primaryWsdl) throws IOException {
         this.primaryWSDLResource = primaryWsdl;
@@ -252,6 +304,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p>
      * If element is a <code>String</code>, {@link ServletContext} (if available) and {@link ClassLoader} are searched
      * for this path, then failing that, it's treated as an absolute {@link URL}.
+     *
+     * @param metadata
+     *            the new metadata
      */
     public void setMetadata(Collection<Object> metadata) {
         this.metadataResources = metadata;
@@ -262,6 +317,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p>
      * If omitted, the default catalog resolver is created by looking at <code>/WEB-INF/jax-ws-catalog.xml</code> (if we
      * run as a servlet) or <code>/META-INF/jax-ws-catalog.xml</code> (otherwise.)
+     *
+     * @param resolver
+     *            the new resolver
      */
     public void setResolver(EntityResolver resolver) {
         this.resolver = resolver;
@@ -377,12 +435,12 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
     private SDDocumentSource resolveSDDocumentSource(Object resource) {
         SDDocumentSource source;
 
-        if (resource instanceof String) {
-            source = this.convertStringToSource((String) resource);
-        } else if (resource instanceof URL) {
-            source = SDDocumentSource.create((URL) resource);
-        } else if (resource instanceof SDDocumentSource) {
-            source = (SDDocumentSource) resource;
+        if (resource instanceof String stringResource) {
+            source = this.convertStringToSource(stringResource);
+        } else if (resource instanceof URL urlResource) {
+            source = SDDocumentSource.create(urlResource);
+        } else if (resource instanceof SDDocumentSource sdDocumentSourceResource) {
+            source = sdDocumentSourceResource;
         } else {
             throw new IllegalArgumentException(
                     "Unknown type \"" + resource.getClass().getName() + "\" for resource " + resource);
@@ -396,6 +454,11 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
      * <p/>
      * If <code>resourceLocation</code> is a <code>String</code>, {@link ServletContext} (if available) and
      * {@link ClassLoader} are searched for this path, then failing that, it's treated as an absolute {@link URL}.
+     *
+     * @param resourceLocation
+     *            the resource location
+     *
+     * @return the SD document source
      *
      * @throws ServerRtException
      *             if <code>resourceLocation</code> cannot be resolved through {@link ServletContext} (if available),
@@ -445,6 +508,9 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
         return WSEndpoint.class;
     }
 
+    /**
+     * The Class ContainerWrapper.
+     */
     private class ContainerWrapper extends Container {
 
         @Override
@@ -457,7 +523,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
                 if (assembler instanceof TubelineAssembler) {
                     return spiType.cast(new TubelineAssemblerFactory() {
                         @Override
-                        public TubelineAssembler doCreate(BindingID bindingId) {
+                        public TubelineAssembler doCreate(BindingID bindingID) {
                             return (TubelineAssembler) assembler;
                         }
                     });
@@ -484,6 +550,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
             return null;
         }
 
+        /** The module. */
         private final com.sun.xml.ws.api.server.Module module = new com.sun.xml.ws.api.server.Module() {
             private final List<BoundEndpoint> endpoints = new ArrayList<>();
 

@@ -33,8 +33,14 @@ import org.junit.jupiter.api.Test;
  */
 public class SpringServiceContainerWrapperTest {
 
+    /**
+     * Gets the SPI returns configured tubeline assembler factory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getSPIReturnsConfiguredTubelineAssemblerFactory() throws Exception {
+    void spiReturnsConfiguredTubelineAssemblerFactory() throws Exception {
         SpringService service = new SpringService();
         TubelineAssemblerFactory factory = new TubelineAssemblerFactory() {
             @Override
@@ -50,8 +56,14 @@ public class SpringServiceContainerWrapperTest {
         assertSame(factory, result);
     }
 
+    /**
+     * Gets the SPI wraps configured tubeline assembler as factory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getSPIWrapsConfiguredTubelineAssemblerAsFactory() throws Exception {
+    void spiWrapsConfiguredTubelineAssemblerAsFactory() throws Exception {
         SpringService service = new SpringService();
         TubelineAssembler assembler = new TubelineAssembler() {
             @Override
@@ -73,8 +85,14 @@ public class SpringServiceContainerWrapperTest {
         assertSame(assembler, result.doCreate(BindingID.parse("http://schemas.xmlsoap.org/wsdl/soap/http")));
     }
 
+    /**
+     * Gets the SPI returns servlet context and delegates to configured container.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getSPIReturnsServletContextAndDelegatesToConfiguredContainer() throws Exception {
+    void spiReturnsServletContextAndDelegatesToConfiguredContainer() throws Exception {
         SpringService service = new SpringService();
 
         ServletContext servletContext = proxy(ServletContext.class);
@@ -97,8 +115,14 @@ public class SpringServiceContainerWrapperTest {
         assertEqualsListWithValue((List<?>) getSPI(wrapper, List.class));
     }
 
+    /**
+     * Gets the SPI returns default module and null for unknown type.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
-    void getSPIReturnsDefaultModuleAndNullForUnknownType() throws Exception {
+    void spiReturnsDefaultModuleAndNullForUnknownType() throws Exception {
         SpringService service = new SpringService();
         Object wrapper = createContainerWrapper(service);
 
@@ -110,6 +134,17 @@ public class SpringServiceContainerWrapperTest {
         assertNull(getSPI(wrapper, String.class));
     }
 
+    /**
+     * Creates the container wrapper.
+     *
+     * @param service
+     *            the service
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object createContainerWrapper(SpringService service) throws Exception {
         Class<?> wrapperClass = Class.forName("com.revinate.ws.spring.SpringService$ContainerWrapper");
         Constructor<?> constructor = wrapperClass.getDeclaredConstructor(SpringService.class);
@@ -117,11 +152,34 @@ public class SpringServiceContainerWrapperTest {
         return constructor.newInstance(service);
     }
 
+    /**
+     * Gets the spi.
+     *
+     * @param wrapper
+     *            the wrapper
+     * @param spiType
+     *            the spi type
+     *
+     * @return the spi
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object getSPI(Object wrapper, Class<?> spiType) throws Exception {
         Method method = wrapper.getClass().getMethod("getSPI", Class.class);
         return method.invoke(wrapper, spiType);
     }
 
+    /**
+     * Proxy.
+     *
+     * @param <T>
+     *            the generic type
+     * @param type
+     *            the type
+     *
+     * @return the t
+     */
     private static <T> T proxy(Class<T> type) {
         return type.cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, (p, m, a) -> {
             Class<?> returnType = m.getReturnType();
@@ -138,6 +196,12 @@ public class SpringServiceContainerWrapperTest {
         }));
     }
 
+    /**
+     * Assert equals list with value.
+     *
+     * @param list
+     *            the list
+     */
     private void assertEqualsListWithValue(List<?> list) {
         org.junit.jupiter.api.Assertions.assertEquals(List.of("value"), list);
     }

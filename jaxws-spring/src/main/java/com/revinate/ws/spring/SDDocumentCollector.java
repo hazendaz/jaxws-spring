@@ -24,8 +24,21 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
+/**
+ * The Class SDDocumentCollector.
+ */
 public class SDDocumentCollector {
 
+    /**
+     * Collect docs.
+     *
+     * @param dirPath
+     *            the dir path
+     * @param cl
+     *            the cl
+     *
+     * @return the map
+     */
     public static Map<URL, Object> collectDocs(String dirPath, ClassLoader cl) {
         Map<URL, Object> docs = new HashMap<>();
         URL url = cl.getResource(dirPath);
@@ -66,6 +79,14 @@ public class SDDocumentCollector {
         return docs;
     }
 
+    /**
+     * Collect dir.
+     *
+     * @param dir
+     *            the dir
+     * @param docs
+     *            the docs
+     */
     private static void collectDir(File dir, Map<URL, Object> docs) {
         File[] files = dir.listFiles();
         if (files != null) {
@@ -87,6 +108,18 @@ public class SDDocumentCollector {
         }
     }
 
+    /**
+     * Collect jar.
+     *
+     * @param inputStream
+     *            the input stream
+     * @param pathParts
+     *            the path parts
+     * @param jarPathUrlString
+     *            the jar path url string
+     * @param docs
+     *            the docs
+     */
     private static void collectJar(InputStream inputStream, String[] pathParts, String jarPathUrlString,
             Map<URL, Object> docs) {
         String nextPathPart = stripLeadingSlash(pathParts[1]);
@@ -129,6 +162,14 @@ public class SDDocumentCollector {
         }
     }
 
+    /**
+     * Gets the extension.
+     *
+     * @param name
+     *            the name
+     *
+     * @return the extension
+     */
     private static String getExtension(String name) {
         int index = name.lastIndexOf(".");
         if (index > 0) {
@@ -137,6 +178,14 @@ public class SDDocumentCollector {
         return "";
     }
 
+    /**
+     * Strip leading slash.
+     *
+     * @param input
+     *            the input
+     *
+     * @return the string
+     */
     private static String stripLeadingSlash(String input) {
         if (input.startsWith("/")) {
             return input.substring(1);

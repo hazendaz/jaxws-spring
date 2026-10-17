@@ -36,6 +36,12 @@ import org.springframework.web.context.support.GenericWebApplicationContext;
  */
 public class WSSpringServletTest {
 
+    /**
+     * Sets the application context injects only web application context.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void setApplicationContextInjectsOnlyWebApplicationContext() throws Exception {
         WSSpringServlet servlet = new WSSpringServlet();
@@ -50,6 +56,9 @@ public class WSSpringServletTest {
         assertTrue((Boolean) readField(servlet, "webApplicationContextInjected"));
     }
 
+    /**
+     * Inits the web application context returns existing context.
+     */
     @Test
     void initWebApplicationContextReturnsExistingContext() {
         GenericWebApplicationContext webContext = new GenericWebApplicationContext();
@@ -58,6 +67,12 @@ public class WSSpringServletTest {
         assertSame(webContext, servlet.initWebApplicationContext());
     }
 
+    /**
+     * Inits the resolves context from servlet context and creates delegate.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void initResolvesContextFromServletContextAndCreatesDelegate() throws Exception {
         GenericWebApplicationContext webContext = new GenericWebApplicationContext();
@@ -76,6 +91,12 @@ public class WSSpringServletTest {
         webContext.close();
     }
 
+    /**
+     * Destroy closes owned context and always destroys delegate.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void destroyClosesOwnedContextAndAlwaysDestroysDelegate() throws Exception {
         GenericWebApplicationContext webContext = new GenericWebApplicationContext();
@@ -94,6 +115,12 @@ public class WSSpringServletTest {
         assertNull(readField(servlet, "delegate"));
     }
 
+    /**
+     * Destroy does not close injected context.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void destroyDoesNotCloseInjectedContext() throws Exception {
         GenericWebApplicationContext webContext = new GenericWebApplicationContext();
@@ -111,6 +138,12 @@ public class WSSpringServletTest {
         webContext.close();
     }
 
+    /**
+     * Http methods delegate to WS servlet delegate.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void httpMethodsDelegateToWSServletDelegate() throws Exception {
         GenericWebApplicationContext webContext = new GenericWebApplicationContext();
@@ -144,18 +177,52 @@ public class WSSpringServletTest {
         webContext.close();
     }
 
+    /**
+     * Read field.
+     *
+     * @param target
+     *            the target
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readField(Object target, String name) throws Exception {
         Field field = WSSpringServlet.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(target);
     }
 
+    /**
+     * Write field.
+     *
+     * @param target
+     *            the target
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void writeField(Object target, String name, Object value) throws Exception {
         Field field = WSSpringServlet.class.getDeclaredField(name);
         field.setAccessible(true);
         field.set(target, value);
     }
 
+    /**
+     * Servlet context.
+     *
+     * @param attributes
+     *            the attributes
+     *
+     * @return the servlet context
+     */
     private static ServletContext servletContext(Map<String, Object> attributes) {
         return proxy(ServletContext.class, (methodName, args) -> {
             if ("getAttribute".equals(methodName)) {
@@ -173,10 +240,32 @@ public class WSSpringServletTest {
         });
     }
 
+    /**
+     * Proxy.
+     *
+     * @param <T>
+     *            the generic type
+     * @param type
+     *            the type
+     *
+     * @return the t
+     */
     private static <T> T proxy(Class<T> type) {
         return proxy(type, (name, args) -> null);
     }
 
+    /**
+     * Proxy.
+     *
+     * @param <T>
+     *            the generic type
+     * @param type
+     *            the type
+     * @param invocations
+     *            the invocations
+     *
+     * @return the t
+     */
     private static <T> T proxy(Class<T> type, Invocations invocations) {
         return type
                 .cast(Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type }, (proxy, method, args) -> {
@@ -198,13 +287,38 @@ public class WSSpringServletTest {
                 }));
     }
 
+    /**
+     * The Interface Invocations.
+     */
     private interface Invocations {
+
+        /**
+         * Call.
+         *
+         * @param methodName
+         *            the method name
+         * @param args
+         *            the args
+         *
+         * @return the object
+         */
         Object call(String methodName, Object[] args);
     }
 
+    /**
+     * The Class SimpleServletConfig.
+     */
     private static final class SimpleServletConfig implements ServletConfig {
+
+        /** The servlet context. */
         private final ServletContext servletContext;
 
+        /**
+         * Instantiates a new simple servlet config.
+         *
+         * @param servletContext
+         *            the servlet context
+         */
         private SimpleServletConfig(ServletContext servletContext) {
             this.servletContext = servletContext;
         }
@@ -230,14 +344,35 @@ public class WSSpringServletTest {
         }
     }
 
+    /**
+     * The Class RecordingDelegate.
+     */
     private static final class RecordingDelegate extends WSServletDelegate {
+
+        /** The destroy calls. */
         private int destroyCalls;
+
+        /** The get calls. */
         private int getCalls;
+
+        /** The post calls. */
         private int postCalls;
+
+        /** The put calls. */
         private int putCalls;
+
+        /** The delete calls. */
         private int deleteCalls;
+
+        /** The head calls. */
         private int headCalls;
 
+        /**
+         * Instantiates a new recording delegate.
+         *
+         * @param servletContext
+         *            the servlet context
+         */
         private RecordingDelegate(ServletContext servletContext) {
             super(new ArrayList<>(), servletContext);
         }

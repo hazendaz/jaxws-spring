@@ -29,6 +29,9 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
  */
 public class ApplicationTest {
 
+    /**
+     * Jaxws servlet beans are configured.
+     */
     @Test
     void jaxwsServletBeansAreConfigured() {
         Application application = new Application();
@@ -41,6 +44,12 @@ public class ApplicationTest {
         assertEquals("/service/*", registration.getUrlMappings().iterator().next());
     }
 
+    /**
+     * Service beans populate names and wsdl metadata.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void serviceBeansPopulateNamesAndWsdlMetadata() throws Exception {
         Application application = new Application();
@@ -65,6 +74,12 @@ public class ApplicationTest {
         assertNotNull(readSpringServiceField(factorialService, "metadataResources"));
     }
 
+    /**
+     * Binding beans use expected urls.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void bindingBeansUseExpectedUrls() throws Exception {
         TestableApplication application = new TestableApplication();
@@ -76,36 +91,92 @@ public class ApplicationTest {
         assertEquals("/service/factorial", readField(factorialBinding, "urlPattern"));
     }
 
+    /**
+     * Sets the field.
+     *
+     * @param target
+     *            the target
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void setField(Object target, String name, Object value) throws Exception {
         Field field = Application.class.getDeclaredField(name);
         field.setAccessible(true);
         field.set(target, value);
     }
 
+    /**
+     * Read spring service field.
+     *
+     * @param service
+     *            the service
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readSpringServiceField(SpringService service, String name) throws Exception {
         Field field = SpringService.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(service);
     }
 
+    /**
+     * Read field.
+     *
+     * @param binding
+     *            the binding
+     * @param name
+     *            the name
+     *
+     * @return the object
+     *
+     * @throws Exception
+     *             the exception
+     */
     private Object readField(SpringBinding binding, String name) throws Exception {
         Field field = SpringBinding.class.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(binding);
     }
 
+    /**
+     * The Class TestableApplication.
+     */
     private static final class TestableApplication extends Application {
+
+        /**
+         * Fibonacci service.
+         *
+         * @return the spring service
+         */
         @Override
         SpringService fibonacciService() {
             return new StubSpringService();
         }
 
+        /**
+         * Factorial service.
+         *
+         * @return the spring service
+         */
         @Override
         SpringService factorialService() {
             return new StubSpringService();
         }
     }
 
+    /**
+     * The Class StubSpringService.
+     */
     private static final class StubSpringService extends SpringService {
         @Override
         public WSEndpoint<?> getObject() {

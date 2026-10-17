@@ -22,6 +22,12 @@ import org.junit.jupiter.api.Test;
  */
 public class FactorialPortImplTest {
 
+    /**
+     * Factorial delegates to number service for valid input.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void factorialDelegatesToNumberServiceForValidInput() throws Exception {
         FactorialPortImpl port = new FactorialPortImpl();
@@ -32,6 +38,12 @@ public class FactorialPortImplTest {
         assertEquals(120, result);
     }
 
+    /**
+     * Factorial throws fault for negative input.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void factorialThrowsFaultForNegativeInput() throws Exception {
         FactorialPortImpl port = new FactorialPortImpl();
@@ -44,6 +56,17 @@ public class FactorialPortImplTest {
         assertEquals("Number: -2", fault.getFaultInfo().getFaultInfo());
     }
 
+    /**
+     * Inject number service.
+     *
+     * @param port
+     *            the port
+     * @param service
+     *            the service
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void injectNumberService(FactorialPortImpl port, NumberService service) throws Exception {
         Field field = FactorialPortImpl.class.getDeclaredField("numberService");
         field.setAccessible(true);

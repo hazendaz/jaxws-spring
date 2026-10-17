@@ -30,6 +30,9 @@ import org.junit.jupiter.api.Test;
  */
 public class GeneratedSampleClassesTest {
 
+    /**
+     * Datatype accessors and factory methods work.
+     */
     @Test
     void datatypeAccessorsAndFactoryMethodsWork() {
         ObjectFactory factory = new ObjectFactory();
@@ -63,6 +66,9 @@ public class GeneratedSampleClassesTest {
         assertEquals("invalid", factorialFault.getMessage());
     }
 
+    /**
+     * Service fault wrappers expose fault beans.
+     */
     @Test
     void serviceFaultWrappersExposeFaultBeans() {
         com.revinate.sample.datatype.FibonacciFault fibonacciFaultInfo = new com.revinate.sample.datatype.FibonacciFault();
@@ -83,6 +89,12 @@ public class GeneratedSampleClassesTest {
         assertSame(factorialFaultInfo, factorialFault.getFaultInfo());
     }
 
+    /**
+     * Sample service constructors and port accessors are usable.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     void sampleServiceConstructorsAndPortAccessorsAreUsable() throws Exception {
         SampleService defaultService = new SampleService();

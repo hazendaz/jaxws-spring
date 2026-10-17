@@ -15,13 +15,18 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class FibonacciPortImpl.
+ */
 @WebService(endpointInterface = "com.revinate.sample.service.FibonacciPort")
 @Component
 public class FibonacciPortImpl implements FibonacciPort {
 
+    /** The number service. */
     @Autowired
     private NumberService numberService;
 
+    @Override
     public int fibonacci(int index) throws FibonacciFault {
         if (index < 0) {
             String message = "Index cannot be negative.";

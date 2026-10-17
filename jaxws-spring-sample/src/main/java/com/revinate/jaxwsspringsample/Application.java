@@ -27,10 +27,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * The Class Application.
+ */
 @SpringBootApplication
 public class Application {
 
+    /** The Constant SAMPLESERVICE_METADATA. */
     private static final Collection<Object> SAMPLESERVICE_METADATA;
+
+    /** The Constant SAMPLESERVICE_PRIMARY_WSDL. */
     private static final Object SAMPLESERVICE_PRIMARY_WSDL;
 
     static {
@@ -40,21 +46,39 @@ public class Application {
         SAMPLESERVICE_PRIMARY_WSDL = docs.get(cl.getResource("sample/wsdl/SampleService.wsdl"));
     }
 
+    /** The fibonacci port. */
     @Autowired
     private FibonacciPort fibonacciPort;
 
+    /** The factorial port. */
     @Autowired
     private FactorialPort factorialPort;
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
+    /**
+     * Jaxws servlet.
+     *
+     * @return the WS spring servlet
+     */
     @Bean
     WSSpringServlet jaxwsServlet() {
         return new WSSpringServlet();
     }
 
+    /**
+     * Jaxws servlet registration.
+     *
+     * @return the servlet registration bean
+     */
     @Bean
     ServletRegistrationBean<WSSpringServlet> jaxwsServletRegistration() {
         ServletRegistrationBean<WSSpringServlet> bean = new ServletRegistrationBean<>(jaxwsServlet(), "/service/*");
@@ -62,6 +86,14 @@ public class Application {
         return bean;
     }
 
+    /**
+     * Fibonacci service.
+     *
+     * @return the spring service
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Bean
     SpringService fibonacciService() throws IOException {
         SpringService service = new SpringService();
@@ -73,6 +105,14 @@ public class Application {
         return service;
     }
 
+    /**
+     * Factorial service.
+     *
+     * @return the spring service
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Bean
     SpringService factorialService() throws IOException {
         SpringService service = new SpringService();
@@ -84,6 +124,14 @@ public class Application {
         return service;
     }
 
+    /**
+     * Fibonacci binding.
+     *
+     * @return the spring binding
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Bean
     SpringBinding fibonacciBinding() throws Exception {
         SpringBinding binding = new SpringBinding();
@@ -92,6 +140,14 @@ public class Application {
         return binding;
     }
 
+    /**
+     * Factorial binding.
+     *
+     * @return the spring binding
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Bean
     SpringBinding factorialBinding() throws Exception {
         SpringBinding binding = new SpringBinding();
