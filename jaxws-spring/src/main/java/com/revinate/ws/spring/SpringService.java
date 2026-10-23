@@ -417,7 +417,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Resolves a resource ({@link String}, {@link URL}, or {@link SDDocumentSource}) to a {@link SDDocumentSource}.
-     * <p/>
+     * <p>
      * See {@link #convertStringToSource(String)} for processing rules relating to a <code>String</code> argument.
      *
      * @param resource
@@ -451,7 +451,7 @@ public class SpringService implements FactoryBean<WSEndpoint>, ServletContextAwa
 
     /**
      * Converts {@link String} into {@link SDDocumentSource}.
-     * <p/>
+     * <p>
      * If <code>resourceLocation</code> is a <code>String</code>, {@link ServletContext} (if available) and
      * {@link ClassLoader} are searched for this path, then failing that, it's treated as an absolute {@link URL}.
      *
